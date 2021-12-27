@@ -1,10 +1,13 @@
-// import "./App.css";
+import { ThemeProvider } from "styled-components";
+import { Reset } from "styled-reset";
+
+import theme from "./theme";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Teste</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Reset />
+    </ThemeProvider>
   );
 }
 
