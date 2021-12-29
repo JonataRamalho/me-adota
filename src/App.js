@@ -1,10 +1,15 @@
-// import "./App.css";
+import { ThemeProvider } from "styled-components";
+import { Reset } from "styled-reset";
+
+import theme from "./theme";
+import Routes from "./routes";
 
 function App() {
   return (
-    <div className="App">
-      <h1>Teste</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Reset />
+      <Routes />
+    </ThemeProvider>
   );
 }
 
