@@ -5,7 +5,7 @@ export const Main = styled.main`
   flex-direction: column;
   align-items: center;
 
-  margin-top: 60px;
+  margin-top: 24px;
 `;
 
 export const Form = styled.form`
@@ -60,48 +60,4 @@ export const Button = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.colors.background};
   }
-`;
-
-export const ForgotPassword = styled.a`
-  margin-top: 16px;
-  cursor: pointer;
-  color: ${(props) => props.theme.colors.tertiary};
-
-  font-family: ${(props) => props.theme.fonts.montserrat};
-  font-size: 14px;
-  font-weight: 500;
-
-  transition: 0.2s ease-in;
-
-  &:hover {
-    color: ${(props) => props.theme.colors.detail};
-  }
-`;
-
-export const Container = styled.div`
-  width: 100%;
-  max-width: 736px;
-
-  margin-bottom: 48px;
-`;
-
-export const Image = styled.img`
-  width: 32px;
-  height: 32px;
-`;
-
-export const ButtonBack = styled.a`
-  cursor: pointer;
-
-  color: ${(props) => props.theme.colors.tertiary};
-
-  font-family: ${(props) => props.theme.fonts.montserrat};
-  font-size: 18px;
-  font-weight: bold;
-
-  transition: 0.2s ease-in;
-
-  display: flex;
-
-  align-items: center;
 `;
