@@ -4,7 +4,7 @@ import { GeneralButton } from "./styles";
 
 const Button = (props) => {
   return (
-    <GeneralButton to={props.to} typeButton={props.typeButton}>
+    <GeneralButton to={props.to} typebutton={props.typeButton.toString()}>
       {props.content}
     </GeneralButton>
   );
