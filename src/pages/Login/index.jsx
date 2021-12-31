@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Background, Header } from "../../components";
+import { Background, Header, Title } from "../../components";
 
 import {
   Main,
@@ -8,7 +8,6 @@ import {
   Form,
   Button,
   ForgotPassword,
-  Title,
   Container,
   Image,
   ButtonBack,
@@ -44,7 +43,7 @@ const Login = () => {
             <Image src={arrowLeft} /> Voltar
           </ButtonBack>
         </Container>
-        <Title>Coloque seu email para enviarmos uma nova senha</Title>
+        <Title content="Coloque seu email para enviarmos uma nova senha" />
         <Form>
           <Input placeholder="Email" type="email" />
           <Button type="submit">Enviar</Button>

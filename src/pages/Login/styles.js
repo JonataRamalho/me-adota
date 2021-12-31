@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Main = styled.main`
-  /* background-color: beige; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +9,6 @@ export const Main = styled.main`
 `;
 
 export const Form = styled.form`
-  /* background-color: bisque; */
   width: 100%;
   max-width: 350px;
 
@@ -80,24 +78,11 @@ export const ForgotPassword = styled.a`
   }
 `;
 
-export const Title = styled.h1`
-  font-family: ${(props) => props.theme.fonts.montserrat};
-  font-size: 22px;
-  font-weight: 300;
-
-  margin-bottom: 24px;
-`;
-
 export const Container = styled.div`
-  /* background-color: brown; */
-
   width: 100%;
   max-width: 736px;
 
   margin-bottom: 48px;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 `;
 
 export const Image = styled.img`
