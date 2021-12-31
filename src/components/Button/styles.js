@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 export const GeneralButton = styled(Link)`
   text-decoration: none;
-  outline: none;
   border: none;
   cursor: pointer;
   transition: 0.2s ease-in;
@@ -17,7 +16,7 @@ export const GeneralButton = styled(Link)`
   justify-content: center;
 
   ${(props) => {
-    switch (props.typeButton) {
+    switch (props.typebutton) {
       case "register":
         return css`
           width: 128px;
