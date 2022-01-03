@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
-import { Home, Login, PasswordRecovery } from "./pages";
+import { Home, Login, PasswordRecovery, Register } from "./pages";
 
 const Routes = () => {
   return (
@@ -8,6 +8,7 @@ const Routes = () => {
         <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/passwordRecovery" element={<PasswordRecovery />} />
+        <Route path="/register" element={<Register />} />
       </Switch>
     </BrowserRouter>
   );
