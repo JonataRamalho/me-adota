@@ -36,7 +36,7 @@ export const GeneralButton = styled(Link)`
       case "adopt":
         return css`
           width: 208px;
-          height: 46px;
+          height: 40px;
 
           border-radius: 40px;
 
