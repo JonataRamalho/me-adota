@@ -72,7 +72,7 @@ const Login = () => {
 
   return (
     <Background>
-      <Header />
+      <Header type={0} />
       {renderPage()}
     </Background>
   );
