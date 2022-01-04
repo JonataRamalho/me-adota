@@ -7,7 +7,7 @@ import imgMeAdota from "../../assets/vamosadotar.png";
 const Home = () => {
   return (
     <Background>
-      <Header />
+      <Header type={0} />
       <Main>
         <Image src={imgMeAdota} />
         <Button to="/search" content="Adote um agora!" typeButton="adopt" />
