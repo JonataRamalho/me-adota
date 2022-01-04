@@ -19,6 +19,8 @@ export const Logo = styled.img`
 
 export const ButtonsContainer = styled.div`
   width: 30%;
+  max-width: 350px;
+
   padding-right: 16px;
 
   display: flex;
@@ -26,27 +28,26 @@ export const ButtonsContainer = styled.div`
   justify-content: space-around;
 `;
 
-export const Button = styled.button`
-  width: 128px;
-  height: 36px;
-
-  background-color: ${(props) =>
-    props.color ? props.theme.colors.detail : props.theme.colors.primary};
+export const ButtonHeader = styled(Link)`
+  background-color: transparent;
+  text-decoration: none;
   outline: none;
   border: none;
   cursor: pointer;
-  border-radius: 40px;
-  transition: 0.2s ease-in;
+
+  display: flex;
+  align-items: center;
 
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-weight: bold;
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${(props) =>
+    props.color ? props.theme.colors.tertiary : props.theme.colors.primary};
+`;
 
-  &:hover {
-    background-color: ${(props) =>
-      props.hover
-        ? props.theme.colors.tertiary
-        : props.theme.colors.background};
-  }
+export const Image = styled.img`
+  margin-right: 8px;
+
+  width: 24px;
+  height: 24px;
 `;
