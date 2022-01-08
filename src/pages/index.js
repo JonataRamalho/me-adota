@@ -3,3 +3,4 @@ export { default as Login } from "./Login";
 export { default as PasswordRecovery } from "./PasswordRecovery";
 export { default as Register } from "./Register";
 export { default as Options } from "./Options";
+export { default as RegisterPet } from "./RegisterPet";
