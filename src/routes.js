@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import {
+  AdoptionPets,
   Home,
   Login,
   Options,
@@ -22,6 +23,7 @@ const Routes = () => {
         <Route path="/registerPet" element={<RegisterPet />} />
         <Route path="/petsAdoption" element={<RegisteredPets />} />
         <Route path="/search" element={<SearchZipCode />} />
+        <Route path="/search/pets" element={<AdoptionPets />} />
       </Switch>
     </BrowserRouter>
   );

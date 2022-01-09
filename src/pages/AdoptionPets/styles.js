@@ -10,7 +10,12 @@ export const Main = styled.main`
 
 export const ContainerButtonBack = styled.div`
   width: 100%;
-  margin-bottom: 24px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+
+  display: flex;
+
+  justify-content: space-between;
 `;
 
 export const Image = styled.img`
@@ -19,7 +24,7 @@ export const Image = styled.img`
 `;
 
 export const ButtonBackMenu = styled(Link)`
-  width: 190px;
+  width: 280px;
   cursor: pointer;
 
   color: ${(props) => props.theme.colors.tertiary};
@@ -29,9 +34,6 @@ export const ButtonBackMenu = styled(Link)`
   font-size: 18px;
   font-weight: bold;
 
-  transition: 0.2s ease-in;
-
-  margin-top: 24px;
   margin-left: 24px;
 
   display: flex;
@@ -58,7 +60,30 @@ export const ButtonBack = styled.a`
   align-items: center;
 `;
 
-export const ContainerRegisteredPets = styled.div`
+export const Input = styled.input`
+  width: 336px;
+  height: 40px;
+
+  margin-top: 16px;
+  margin-right: 24px;
+  padding-left: 16px;
+
+  border-radius: 64px;
+  outline: none;
+  border: none;
+  background-color: ${(props) => props.theme.colors.input};
+  color: ${(props) => props.theme.colors.text};
+
+  font-family: ${(props) => props.theme.fonts.montserrat};
+  font-size: 14px;
+  font-weight: 500;
+
+  ::-webkit-input-placeholder {
+    color: ${(props) => props.theme.colors.tertiary};
+  }
+`;
+
+export const ContainerAdoptionPets = styled.div`
   width: 100%;
 `;
 
@@ -150,8 +175,8 @@ export const Detail = styled.p`
 `;
 
 export const ContainerButtonNext = styled.div`
-  margin-right: 32px;
   margin-top: 16px;
+  margin-right: 32px;
 
   display: flex;
   justify-content: flex-end;
