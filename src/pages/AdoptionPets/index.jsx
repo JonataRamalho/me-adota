@@ -2,22 +2,29 @@ import { useState } from "react";
 import { Background, Title } from "../../components";
 import {
   ButtonBackMenu,
-  ButtonNext,
+  Button,
   ButtonPet,
+  Checkbox,
   ContainerAdoptionPets,
   ContainerButtonBack,
-  ContainerButtonNext,
+  ContainerButton,
+  ContainerCheckbox,
   ContainerDetails,
   ContainerPet,
   ContainerPets,
+  ContainerSearch,
+  ContainerSearchPet,
   ContainerSelectedPet,
   Detail,
   Image,
   ImagePet,
   Input,
+  Label,
   Main,
   Name,
+  TitleSearch,
 } from "./styles";
+import Modal from "@mui/material/Modal";
 
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
@@ -26,6 +33,7 @@ const AdoptionPets = () => {
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
+  const [open, setOpen] = useState(false);
 
   function changeButtonSelectedAllPets() {
     setSelectedTodosPets(true);
@@ -44,6 +52,15 @@ const AdoptionPets = () => {
     setSelectedTodosPets(false);
     setSelectedCachorro(false);
   }
+
+  function handleOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false);
+  }
+
   return (
     <Background>
       <Main>
@@ -52,7 +69,101 @@ const AdoptionPets = () => {
             <Image src={arrowLeft} /> Voltar para pesquisar cep
           </ButtonBackMenu>
 
-          <Input placeholder="Ex: Cinza" />
+          <Input placeholder="Ex: Cinza" onClick={handleOpen} />
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <ContainerSearch>
+              <Input
+                placeholder="Ex: Cinza"
+                onClick={handleOpen}
+                modal={true}
+              />
+              <ContainerSearchPet>
+                <TitleSearch>Qual é o pet?</TitleSearch>
+                <ContainerCheckbox>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Cachoro
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Gato
+                  </Label>
+                </ContainerCheckbox>
+              </ContainerSearchPet>
+              <ContainerSearchPet>
+                <TitleSearch>Porte?</TitleSearch>
+                <ContainerCheckbox>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Grande
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Médio
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Pequeno
+                  </Label>
+                </ContainerCheckbox>
+              </ContainerSearchPet>
+              <ContainerSearchPet>
+                <TitleSearch>Genêro?</TitleSearch>
+                <ContainerCheckbox>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Macho
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Fêmea
+                  </Label>
+                </ContainerCheckbox>
+              </ContainerSearchPet>
+              <ContainerSearchPet>
+                <TitleSearch>Castrado?</TitleSearch>
+                <ContainerCheckbox>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Sim
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Não
+                  </Label>
+                </ContainerCheckbox>
+              </ContainerSearchPet>
+              <ContainerSearchPet>
+                <TitleSearch>Faixa Etária?</TitleSearch>
+                <ContainerCheckbox>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Adulto
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Filhote
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Jovem
+                  </Label>
+                  <Label>
+                    <Checkbox type="checkbox" />
+                    Sênior
+                  </Label>
+                </ContainerCheckbox>
+              </ContainerSearchPet>
+              <ContainerSearchPet button={true}>
+                <Button>Pesquisar</Button>
+              </ContainerSearchPet>
+            </ContainerSearch>
+          </Modal>
         </ContainerButtonBack>
 
         <Title content="Pets para adoção" />
@@ -150,9 +261,9 @@ const AdoptionPets = () => {
               </ContainerDetails>
             </ContainerPet>
           </ContainerPets>
-          <ContainerButtonNext>
-            <ButtonNext>Próximo</ButtonNext>
-          </ContainerButtonNext>
+          <ContainerButton>
+            <Button>Próximo</Button>
+          </ContainerButton>
         </ContainerAdoptionPets>
       </Main>
     </Background>

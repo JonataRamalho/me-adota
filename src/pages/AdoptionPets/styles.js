@@ -1,5 +1,5 @@
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
 
 export const Main = styled.main`
   display: flex;
@@ -65,7 +65,7 @@ export const Input = styled.input`
   height: 40px;
 
   margin-top: 16px;
-  margin-right: 24px;
+  margin-right: ${(props) => (props.modal ? "" : "24px")};
   padding-left: 16px;
 
   border-radius: 64px;
@@ -174,15 +174,17 @@ export const Detail = styled.p`
   font-weight: 500;
 `;
 
-export const ContainerButtonNext = styled.div`
+export const ContainerButton = styled.div`
   margin-top: 16px;
   margin-right: 32px;
 
   display: flex;
   justify-content: flex-end;
+
+  /* background-color: red; */
 `;
 
-export const ButtonNext = styled.button`
+export const Button = styled.button`
   width: 128px;
   height: 36px;
 
@@ -202,4 +204,81 @@ export const ButtonNext = styled.button`
   &:hover {
     background-color: ${(props) => props.theme.colors.background};
   }
+`;
+
+export const ContainerSearch = styled.div`
+  background-color: ${(props) => props.theme.colors.secondary};
+  width: 448px;
+  height: 520px;
+  border-radius: 24px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ContainerSearchPet = styled.div`
+  /* width: 80%; */
+  width: 344px;
+  margin-top: 16px;
+  /* background-color: aliceblue; */
+
+  ${(props) => {
+    if (props.button) {
+      return css`
+        display: flex;
+        justify-content: end;
+      `;
+    }
+  }}/* padding-left: 24px; */
+
+  /* display: flex;
+  flex-direction: column;
+
+  align-items: center; */
+`;
+
+export const TitleSearch = styled.p`
+  width: 100%;
+  /* background-color: bisque; */
+  padding-bottom: 8px;
+  /* color: ${(props) => props.theme.colors.primary}; */
+
+  font-family: ${(props) => props.theme.fonts.montserrat};
+  font-size: 16px;
+  /* font-weight: 500; */
+
+  border-bottom: 1px solid ${(props) => props.theme.colors.primary};
+`;
+
+export const ContainerCheckbox = styled.div`
+  /* background-color: red; */
+
+  margin-top: 12px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  column-gap: 16px;
+  row-gap: 8px;
+`;
+
+export const Label = styled.label`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: ${(props) => props.theme.fonts.montserrat};
+  font-size: 14px;
+  /* background-color: blueviolet; */
+`;
+
+export const Checkbox = styled.input`
+  width: 14px;
+  height: 14px;
+  margin-right: 8px;
 `;
