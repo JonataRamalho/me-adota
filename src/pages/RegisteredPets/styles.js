@@ -150,8 +150,7 @@ export const Detail = styled.p`
 `;
 
 export const ContainerButtonNext = styled.div`
-  width: 92%;
-
+  margin-right: 32px;
   margin-top: 16px;
 
   display: flex;

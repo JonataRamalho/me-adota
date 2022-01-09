@@ -147,10 +147,10 @@ const RegisteredPets = () => {
               </ContainerDetails>
             </ContainerPet>
           </ContainerPets>
+          <ContainerButtonNext>
+            <ButtonNext>Próximo</ButtonNext>
+          </ContainerButtonNext>
         </ContainerRegisteredPets>
-        <ContainerButtonNext>
-          <ButtonNext>Próximo</ButtonNext>
-        </ContainerButtonNext>
       </Main>
     </Background>
   );
