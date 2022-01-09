@@ -16,24 +16,38 @@ import logOut from "../../assets/log-out.svg";
 const Header = (props) => {
   function showInitialHeader() {
     return (
-      <ButtonsContainer>
-        <Button to="/register" content="Cadastre-se" typeButton={"register"} />
-        <Button to="/login" content={"Entrar"} typeButton></Button>
-      </ButtonsContainer>
+      <NavBar>
+        <LogoContainer to="/">
+          <Logo src={logo} alt="Logo Me Adota" />
+        </LogoContainer>
+        <ButtonsContainer>
+          <Button
+            to="/register"
+            content="Cadastre-se"
+            typeButton={"register"}
+          />
+          <Button to="/login" content={"Entrar"} typeButton></Button>
+        </ButtonsContainer>
+      </NavBar>
     );
   }
 
   function showOptionsHeader() {
     return (
-      <ButtonsContainer>
-        <ButtonHeader to="/perfil" color={false}>
-          <Image src={user} /> Teste
-        </ButtonHeader>
-        <ButtonHeader to="/" color={true}>
-          <Image src={logOut} />
-          Sair
-        </ButtonHeader>
-      </ButtonsContainer>
+      <NavBar>
+        <LogoContainer to="/options">
+          <Logo src={logo} alt="Logo Me Adota" />
+        </LogoContainer>
+        <ButtonsContainer>
+          <ButtonHeader to="/perfil" color={false}>
+            <Image src={user} /> Teste
+          </ButtonHeader>
+          <ButtonHeader to="/" color={true}>
+            <Image src={logOut} />
+            Sair
+          </ButtonHeader>
+        </ButtonsContainer>
+      </NavBar>
     );
   }
 
@@ -45,14 +59,7 @@ const Header = (props) => {
     }
   }
 
-  return (
-    <NavBar>
-      <LogoContainer to="/">
-        <Logo src={logo} alt="Logo Me Adota" />
-      </LogoContainer>
-      {renderHeader()}
-    </NavBar>
-  );
+  return renderHeader();
 };
 
 export default Header;

@@ -8,6 +8,7 @@ const theme = {
     delete: "#DB3D29",
     input: "#F5F5F5",
     detail: "#6F6F6F",
+    line: "#D8D8D8",
   },
   fonts: {
     montserrat: "Montserrat, sans-serif",
