@@ -5,6 +5,7 @@ import {
   Options,
   PasswordRecovery,
   Register,
+  RegisteredPets,
   RegisterPet,
 } from "./pages";
 
@@ -18,6 +19,7 @@ const Routes = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/options" element={<Options />} />
         <Route path="/registerPet" element={<RegisterPet />} />
+        <Route path="/petsAdoption" element={<RegisteredPets />} />
       </Switch>
     </BrowserRouter>
   );
