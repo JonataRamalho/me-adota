@@ -7,3 +7,4 @@ export { default as RegisterPet } from "./RegisterPet";
 export { default as RegisteredPets } from "./RegisteredPets";
 export { default as SearchZipCode } from "./SearchZipCode";
 export { default as AdoptionPets } from "./AdoptionPets";
+export { default as Pet } from "./Pet";
