@@ -11,7 +11,7 @@ const SearchZipCode = () => {
         </ContainerTile>
         <Form>
           <Input placeholder="Ex: 57084040" />
-          <Button to="/pets">Pesquisar</Button>
+          <Button to="/search/pets">Pesquisar</Button>
         </Form>
       </Main>
     </Background>
