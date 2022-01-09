@@ -5,3 +5,4 @@ export { default as Register } from "./Register";
 export { default as Options } from "./Options";
 export { default as RegisterPet } from "./RegisterPet";
 export { default as RegisteredPets } from "./RegisteredPets";
+export { default as SearchZipCode } from "./SearchZipCode";

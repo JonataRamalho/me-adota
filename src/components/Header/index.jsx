@@ -51,11 +51,23 @@ const Header = (props) => {
     );
   }
 
+  function showSearchHeader() {
+    return (
+      <NavBar>
+        <LogoContainer to="/">
+          <Logo src={logo} alt="Logo Me Adota" />
+        </LogoContainer>
+      </NavBar>
+    );
+  }
+
   function renderHeader() {
     if (props.type === 0) {
       return showInitialHeader();
     } else if (props.type === 1) {
       return showOptionsHeader();
+    } else if (props.type === 2) {
+      return showSearchHeader();
     }
   }
 

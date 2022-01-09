@@ -7,6 +7,7 @@ import {
   Register,
   RegisteredPets,
   RegisterPet,
+  SearchZipCode,
 } from "./pages";
 
 const Routes = () => {
@@ -20,6 +21,7 @@ const Routes = () => {
         <Route path="/options" element={<Options />} />
         <Route path="/registerPet" element={<RegisterPet />} />
         <Route path="/petsAdoption" element={<RegisteredPets />} />
+        <Route path="/search" element={<SearchZipCode />} />
       </Switch>
     </BrowserRouter>
   );
