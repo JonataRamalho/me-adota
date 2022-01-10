@@ -5,6 +5,7 @@ import {
   Login,
   Options,
   PasswordRecovery,
+  Pet,
   Register,
   RegisteredPets,
   RegisterPet,
@@ -24,6 +25,7 @@ const Routes = () => {
         <Route path="/petsAdoption" element={<RegisteredPets />} />
         <Route path="/search" element={<SearchZipCode />} />
         <Route path="/search/pets" element={<AdoptionPets />} />
+        <Route path="/search/pets/pet" element={<Pet />} />
       </Switch>
     </BrowserRouter>
   );

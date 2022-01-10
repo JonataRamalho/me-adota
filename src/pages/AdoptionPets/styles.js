@@ -180,8 +180,6 @@ export const ContainerButton = styled.div`
 
   display: flex;
   justify-content: flex-end;
-
-  /* background-color: red; */
 `;
 
 export const Button = styled.button`
@@ -224,10 +222,8 @@ export const ContainerSearch = styled.div`
 `;
 
 export const ContainerSearchPet = styled.div`
-  /* width: 80%; */
   width: 344px;
   margin-top: 16px;
-  /* background-color: aliceblue; */
 
   ${(props) => {
     if (props.button) {
@@ -236,30 +232,20 @@ export const ContainerSearchPet = styled.div`
         justify-content: end;
       `;
     }
-  }}/* padding-left: 24px; */
-
-  /* display: flex;
-  flex-direction: column;
-
-  align-items: center; */
+  }}
 `;
 
 export const TitleSearch = styled.p`
   width: 100%;
-  /* background-color: bisque; */
   padding-bottom: 8px;
-  /* color: ${(props) => props.theme.colors.primary}; */
 
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-size: 16px;
-  /* font-weight: 500; */
 
   border-bottom: 1px solid ${(props) => props.theme.colors.primary};
 `;
 
 export const ContainerCheckbox = styled.div`
-  /* background-color: red; */
-
   margin-top: 12px;
 
   display: grid;
@@ -274,7 +260,6 @@ export const Label = styled.label`
   align-items: center;
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-size: 14px;
-  /* background-color: blueviolet; */
 `;
 
 export const Checkbox = styled.input`
