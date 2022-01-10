@@ -10,7 +10,7 @@ const Home = () => {
       <Header type={0} />
       <Main>
         <Image src={imgMeAdota} />
-        <Button to="/search" content="Adote um agora!" typeButton="adopt" />
+        <Button to="/pesquisar" content="Adote um agora!" typeButton="adopt" />
       </Main>
     </Background>
   );

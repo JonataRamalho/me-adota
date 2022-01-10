@@ -64,7 +64,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      navigate("/profile");
+      navigate("/menu");
     } catch (err) {
       alert("Falha no login, tente novamente.");
     }

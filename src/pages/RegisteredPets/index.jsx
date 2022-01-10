@@ -49,7 +49,7 @@ const RegisteredPets = () => {
     <Background>
       <Main>
         <ContainerButtonBack>
-          <ButtonBackMenu to="/options">
+          <ButtonBackMenu to="/menu">
             <Image src={arrowLeft} /> Voltar ao menu
           </ButtonBackMenu>
         </ContainerButtonBack>
@@ -76,70 +76,70 @@ const RegisteredPets = () => {
             </ButtonPet>
           </ContainerSelectedPet>
           <ContainerPets>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/petsAdoption/pet">
+            <ContainerPet to="/menu/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>

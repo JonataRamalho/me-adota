@@ -60,7 +60,7 @@ const RegisterPet = () => {
     return (
       <Main>
         <ContainerButtonBack>
-          <ButtonBackMenu to="/options">
+          <ButtonBackMenu to="/menu">
             <Image src={arrowLeft} /> Voltar ao menu
           </ButtonBackMenu>
         </ContainerButtonBack>
