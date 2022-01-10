@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes as Switch } from "react-router-dom";
 import {
   AdoptionPets,
   Home,
+  Instituion,
   Login,
   Options,
   PasswordRecovery,
@@ -18,14 +19,18 @@ const Routes = () => {
       <Switch>
         <Route path="/" exact element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/passwordRecovery" element={<PasswordRecovery />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/options" element={<Options />} />
-        <Route path="/registerPet" element={<RegisterPet />} />
-        <Route path="/petsAdoption" element={<RegisteredPets />} />
-        <Route path="/search" element={<SearchZipCode />} />
-        <Route path="/search/pets" element={<AdoptionPets />} />
-        <Route path="/search/pets/pet" element={<Pet />} />
+        <Route path="/recuperar-senha" element={<PasswordRecovery />} />
+        <Route path="/cadastrar" element={<Register />} />
+        <Route path="/menu" element={<Options />} />
+        <Route path="/menu/cadastrar-pet" element={<RegisterPet />} />
+        <Route path="/menu/pets" element={<RegisteredPets />} />
+        <Route path="/pesquisar" element={<SearchZipCode />} />
+        <Route path="/pesquisar/pets" element={<AdoptionPets />} />
+        <Route path="/pesquisar/pets/pet" element={<Pet />} />
+        <Route
+          path="/pesquisar/pets/pet/instituicao"
+          element={<Instituion />}
+        />
       </Switch>
     </BrowserRouter>
   );

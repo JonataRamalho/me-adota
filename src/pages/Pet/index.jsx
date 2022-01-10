@@ -25,7 +25,7 @@ const Pet = () => {
     <Background>
       <Main>
         <ContainerButtonBack>
-          <ButtonBack to="/search/pets">
+          <ButtonBack to="/pesquisar/pets">
             <Image src={arrowLeft} /> Voltar aos pets
           </ButtonBack>
         </ContainerButtonBack>
@@ -33,7 +33,9 @@ const Pet = () => {
           <ContainerPet>
             <ContainerImagePet>
               <ImagePet src={modelo} />
-              <Button>Adotar</Button>
+              <Button to="/pesquisar/pets/pet/instituicao">
+                Entre em Contato
+              </Button>
             </ContainerImagePet>
             <ContainerDescriptionPet>
               <Name>Apollo</Name>

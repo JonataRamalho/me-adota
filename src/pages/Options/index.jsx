@@ -20,7 +20,7 @@ const Options = () => {
       <Main>
         <ContainerOptions>
           <ContainerContent>
-            <Button to="/registerPet">
+            <Button to="/menu/cadastrar-pet">
               <ContainerDetail>
                 <Image src={cat} />
               </ContainerDetail>
@@ -28,7 +28,7 @@ const Options = () => {
             </Button>
           </ContainerContent>
           <ContainerContent>
-            <Button to="/petsAdoption">
+            <Button to="/menu/pets">
               <ContainerDetail>
                 <Image src={pet} />
               </ContainerDetail>
@@ -36,7 +36,7 @@ const Options = () => {
             </Button>
           </ContainerContent>
           <ContainerContent>
-            <Button to="/dashboard">
+            <Button to="/menu/dashboard">
               <ContainerDetail>
                 <Image src={dashboard} />
               </ContainerDetail>
@@ -44,7 +44,7 @@ const Options = () => {
             </Button>
           </ContainerContent>
           <ContainerContent>
-            <Button to="/profile">
+            <Button to="/menu/perfil">
               <ContainerDetail>
                 <Image src={user} />
               </ContainerDetail>

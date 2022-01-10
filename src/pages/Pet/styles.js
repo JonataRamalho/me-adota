@@ -69,14 +69,20 @@ export const ImagePet = styled.img`
   margin-bottom: 24px;
 `;
 
-export const Button = styled.button`
-  width: 144px;
+export const Button = styled(Link)`
+  width: 160px;
   height: 40px;
 
   border: none;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   transition: 0.2s ease-in;
 
+  text-decoration: none;
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-weight: bold;

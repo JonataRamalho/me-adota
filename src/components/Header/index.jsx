@@ -22,7 +22,7 @@ const Header = (props) => {
         </LogoContainer>
         <ButtonsContainer>
           <Button
-            to="/register"
+            to="/cadastrar"
             content="Cadastre-se"
             typeButton={"register"}
           />
@@ -35,7 +35,7 @@ const Header = (props) => {
   function showOptionsHeader() {
     return (
       <NavBar>
-        <LogoContainer to="/options">
+        <LogoContainer to="/menu">
           <Logo src={logo} alt="Logo Me Adota" />
         </LogoContainer>
         <ButtonsContainer>

@@ -65,7 +65,7 @@ const AdoptionPets = () => {
     <Background>
       <Main>
         <ContainerButtonBack>
-          <ButtonBackMenu to="/search">
+          <ButtonBackMenu to="/pesquisar">
             <Image src={arrowLeft} /> Voltar para pesquisar cep
           </ButtonBackMenu>
 
@@ -190,70 +190,70 @@ const AdoptionPets = () => {
             </ButtonPet>
           </ContainerSelectedPet>
           <ContainerPets>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
                 <Detail>Adulto - Macho - Castrado</Detail>
               </ContainerDetails>
             </ContainerPet>
-            <ContainerPet to="/search/pets/pet">
+            <ContainerPet to="/pesquisar/pets/pet">
               <ImagePet src={modelo} />
               <ContainerDetails>
                 <Name>Apollo</Name>
