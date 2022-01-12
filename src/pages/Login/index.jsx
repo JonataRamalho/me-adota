@@ -14,8 +14,13 @@ import {
 } from "./styles";
 import arrowLeft from "../../assets/arrow-left.svg";
 
+import { ToastContainer, toast } from "react-toastify";
+import api from "../../services/api";
+
 const Login = () => {
   const [page, setPage] = useState(0);
+  const [email, setEmail] = useState("amada@gmail.com");
+  const [password, setPassword] = useState("123456");
 
   const navigate = useNavigate();
 
@@ -23,8 +28,18 @@ const Login = () => {
     return (
       <Main>
         <Form onSubmit={handleLogin}>
-          <Input placeholder="Email" type="email" />
-          <Input placeholder="Senha" type="password" />
+          <Input
+            placeholder="Email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="Senha"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
           <Button type="submit">Entrar</Button>
           <ForgotPassword onClick={() => setPage(1)}>
@@ -60,13 +75,55 @@ const Login = () => {
     }
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
 
+    const data = JSON.stringify({
+      username: email,
+      password: password,
+    });
+
     try {
+      const response = await api.post("/login", data, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          // "Access-Control-Allow-Origin": "*",
+        },
+      });
+
+      // const request = response.headers.authorization;
+
+      // localStorage.setItem("token", request);
+
+      getInstituion();
+
       navigate("/menu");
     } catch (err) {
-      alert("Falha no login, tente novamente.");
+      toast.error("Erro ao realizar login!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  async function getInstituion() {
+    try {
+      const response = await api.get(
+        "/api/institution/username",
+        { params: { username: email } },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      localStorage.setItem(
+        "@storage_Institution",
+        JSON.stringify(response.data)
+      );
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -74,6 +131,7 @@ const Login = () => {
     <Background>
       <Header type={0} />
       {renderPage()}
+      <ToastContainer />
     </Background>
   );
 };

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Background, Header, Title } from "../../components";
-import "react-toastify/dist/ReactToastify.css";
 import {
   Button,
   ButtonBack,
@@ -15,6 +14,7 @@ import {
 import arrowLeft from "../../assets/arrow-left.svg";
 import api from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import cepApi from "cep-promise";
 import { useNavigate } from "react-router-dom";
 
