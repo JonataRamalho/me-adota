@@ -12,8 +12,19 @@ import { Button } from "../index";
 import logo from "../../assets/meadota.png";
 import user from "../../assets/user-blue.svg";
 import logOut from "../../assets/log-out.svg";
+import { useEffect, useState } from "react";
 
 const Header = (props) => {
+  useEffect(() => {
+    const data = localStorage.getItem("@storage_Institution");
+
+    const { name } = JSON.parse(data);
+
+    setNameInstituion(name);
+  }, []);
+
+  const [nameInstituion, setNameInstituion] = useState("");
+
   function showInitialHeader() {
     return (
       <NavBar>
@@ -40,7 +51,7 @@ const Header = (props) => {
         </LogoContainer>
         <ButtonsContainer>
           <ButtonHeader to="/perfil" color={false}>
-            <Image src={user} /> Teste
+            <Image src={user} /> {nameInstituion}
           </ButtonHeader>
           <ButtonHeader to="/" color={true}>
             <Image src={logOut} />
