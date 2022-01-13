@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import api from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
 import { Background, Title } from "../../components";
 import {
   ButtonBackMenu,
@@ -20,12 +23,28 @@ import {
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
 
-import { useState } from "react";
-
 const RegisteredPets = () => {
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
+  const [idInstituion, setIdInstituion] = useState("");
+  const [dataAnimals, setDataAnimals] = useState([]);
+  const [next, setNext] = useState("");
+
+  useEffect(() => {
+    const data = localStorage.getItem("@storage_Institution");
+
+    const { id } = JSON.parse(data);
+
+    setIdInstituion(id);
+    // console.log(id);
+  }, []);
+
+  useEffect(() => {
+    // if (selectedTodosPets) {
+    getAnimals();
+    // }
+  }, []);
 
   function changeButtonSelectedAllPets() {
     setSelectedTodosPets(true);
@@ -43,6 +62,26 @@ const RegisteredPets = () => {
     setSelectedGato(true);
     setSelectedTodosPets(false);
     setSelectedCachorro(false);
+  }
+
+  async function getAnimals() {
+    // console.log("Pets all");
+    try {
+      const response = await api.get(
+        "/api/animals/institution",
+        { params: { id: idInstituion } },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      setDataAnimals(response.data.content);
+    } catch (error) {
+      toast.error("Erro ao obter os pets :(", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   }
 
   return (
@@ -76,82 +115,27 @@ const RegisteredPets = () => {
             </ButtonPet>
           </ContainerSelectedPet>
           <ContainerPets>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
-            <ContainerPet to="/menu/pets/pet">
-              <ImagePet src={modelo} />
-              <ContainerDetails>
-                <Name>Apollo</Name>
-                <Detail>Adulto - Macho - Castrado</Detail>
-              </ContainerDetails>
-            </ContainerPet>
+            {dataAnimals.map((item, index) => {
+              return (
+                <ContainerPet key={index} to="/menu/pets/pet">
+                  <ImagePet src={modelo} />
+                  <ContainerDetails>
+                    <Name>{item.name}</Name>
+                    <Detail>
+                      {item.age} - {item.gender} -{" "}
+                      {item.castration === "s" ? "Castrado" : "Não castrado"}
+                    </Detail>
+                  </ContainerDetails>
+                </ContainerPet>
+              );
+            })}
           </ContainerPets>
           <ContainerButtonNext>
             <ButtonNext>Próximo</ButtonNext>
           </ContainerButtonNext>
         </ContainerRegisteredPets>
       </Main>
+      <ToastContainer />
     </Background>
   );
 };
