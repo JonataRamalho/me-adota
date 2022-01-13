@@ -69,28 +69,28 @@ const RegisterPet = () => {
   }, []);
 
   let colorDogs = [
-    { value: "amarelo", text: "Amarelo" },
-    { value: "branco", text: "Branco" },
-    { value: "bicolor", text: "Bicolor" },
-    { value: "chocolate", text: "Chocolate" },
-    { value: "cinza", text: "Cinza" },
-    { value: "creme", text: "Creme" },
-    { value: "dourado", text: "Dourado" },
-    { value: "ruivo", text: "Ruivo" },
-    { value: "marrom", text: "Marrom" },
-    { value: "preto", text: "Preto" },
+    { value: "Amarelo", text: "Amarelo" },
+    { value: "Branco", text: "Branco" },
+    { value: "Bicolor", text: "Bicolor" },
+    { value: "Chocolate", text: "Chocolate" },
+    { value: "Cinza", text: "Cinza" },
+    { value: "Creme", text: "Creme" },
+    { value: "Dourado", text: "Dourado" },
+    { value: "Ruivo", text: "Ruivo" },
+    { value: "Marrom", text: "Marrom" },
+    { value: "Preto", text: "Preto" },
   ];
 
   let colorCat = [
-    { value: "bege", text: "Bege" },
-    { value: "branco", text: "Branco" },
-    { value: "bicolor", text: "Bicolor" },
+    { value: "Bege", text: "Bege" },
+    { value: "Branco", text: "Branco" },
+    { value: "Bicolor", text: "Bicolor" },
     { value: "Cinza", text: "Cinza" },
     { value: "Creme", text: "Creme" },
-    { value: "laranja", text: "Laranja" },
-    { value: "marrom", text: "Marrom" },
-    { value: "preto", text: "Preto" },
-    { value: "tricolor", text: "Tricolor" },
+    { value: "Laranja", text: "Laranja" },
+    { value: "Marrom", text: "Marrom" },
+    { value: "Preto", text: "Preto" },
+    { value: "Tricolor", text: "Tricolor" },
   ];
 
   function showRegistrationPartOne() {
@@ -128,8 +128,8 @@ const RegisterPet = () => {
               <Option hidden value="default">
                 Qual é o pet?
               </Option>
-              <Option value="cachorro">Cachorro</Option>
-              <Option value="gato">Gato</Option>
+              <Option value="Cachorro">Cachorro</Option>
+              <Option value="Gato">Gato</Option>
             </Select>
           </ContainerInputs>
           <ContainerInputs>
@@ -141,9 +141,9 @@ const RegisterPet = () => {
               <Option hidden value="default">
                 Qual é a faixa etária?
               </Option>
-              <Option value="jovem">Jovem</Option>
+              <Option value="Jovem">Jovem</Option>
               <Option value="Adulto">Adulto</Option>
-              <Option value="senior<">Sênior</Option>
+              <Option value="Sênior<">Sênior</Option>
             </Select>
             <Select
               color={gender}
@@ -153,8 +153,8 @@ const RegisterPet = () => {
               <Option hidden value="default">
                 Qual é o gênero?
               </Option>
-              <Option value="femea">Fêmea</Option>
-              <Option value="macho">Macho</Option>
+              <Option value="Fêmea">Fêmea</Option>
+              <Option value="Macho">Macho</Option>
             </Select>
           </ContainerInputs>
           <ContainerInputs>
@@ -189,7 +189,7 @@ const RegisterPet = () => {
         <Title content="Cadastro de pet para doação" />
         <Form onSubmit={handleRegisterPet}>
           <ContainerInputs>
-            {petType === "cachorro" ? (
+            {petType === "Cachorro" ? (
               <Select
                 color={port}
                 value={port}
@@ -198,9 +198,9 @@ const RegisterPet = () => {
                 <Option hidden value="default">
                   Qual é o porte?
                 </Option>
-                <Option value="pequeno">Pequeno</Option>
-                <Option value="medio">Médio</Option>
-                <Option value="grande">Grande</Option>
+                <Option value="Pequeno">Pequeno</Option>
+                <Option value="Médio">Médio</Option>
+                <Option value="Grande">Grande</Option>
               </Select>
             ) : (
               <></>
