@@ -49,9 +49,9 @@ const RegisterPet = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (petType === "cachorro") {
+    if (petType === "Cachorro") {
       setColorPet(colorDogs);
-    } else if (petType === "gato") {
+    } else if (petType === "Gato") {
       setColorPet(colorCat);
     }
   }, [petType]);
@@ -316,7 +316,7 @@ const RegisterPet = () => {
   async function handleRegisterPet(e) {
     e.preventDefault();
 
-    if (petType === "gato") {
+    if (petType === "Gato") {
       await dataCat();
     } else {
       await dataDog();

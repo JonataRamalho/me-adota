@@ -37,14 +37,20 @@ const RegisteredPets = () => {
     const { id } = JSON.parse(data);
 
     setIdInstituion(id);
-    // console.log(id);
+    getAnimals(id);
   }, []);
 
   useEffect(() => {
-    // if (selectedTodosPets) {
-    getAnimals();
-    // }
-  }, []);
+    if (selectedTodosPets) {
+      getAnimals();
+    } else if (selectedCachorro) {
+      setDataAnimals([]);
+      getDogs();
+    } else if (selectedGato) {
+      setDataAnimals([]);
+      getCats();
+    }
+  }, [selectedCachorro, selectedCachorro, selectedGato]);
 
   function changeButtonSelectedAllPets() {
     setSelectedTodosPets(true);
@@ -64,11 +70,31 @@ const RegisteredPets = () => {
     setSelectedCachorro(false);
   }
 
-  async function getAnimals() {
-    // console.log("Pets all");
+  async function getAnimals(id = idInstituion) {
+    if (id !== "") {
+      try {
+        const response = await api.get(
+          "/api/animals/institution",
+          { params: { id: id } },
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        setDataAnimals(response.data.content);
+      } catch (error) {
+        toast.error("Erro ao obter os pets :(", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+    }
+  }
+
+  async function getCats() {
     try {
       const response = await api.get(
-        "/api/animals/institution",
+        "/api/cats/institution",
         { params: { id: idInstituion } },
         {
           method: "GET",
@@ -78,7 +104,26 @@ const RegisteredPets = () => {
 
       setDataAnimals(response.data.content);
     } catch (error) {
-      toast.error("Erro ao obter os pets :(", {
+      toast.error("Erro ao obter os gatos :(", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  async function getDogs() {
+    try {
+      const response = await api.get(
+        "/api/dogs/institution",
+        { params: { id: idInstituion } },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      setDataAnimals(response.data.content);
+    } catch (error) {
+      toast.error("Erro ao obter os cachorros :(", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
@@ -116,9 +161,10 @@ const RegisteredPets = () => {
           </ContainerSelectedPet>
           <ContainerPets>
             {dataAnimals.map((item, index) => {
+              // console.log("http://localhost:8080" + item.imagePath);
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={modelo} />
+                  <ImagePet src={window.location.origin + item.imagePath} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
