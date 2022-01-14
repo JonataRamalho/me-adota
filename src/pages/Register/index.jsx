@@ -38,22 +38,29 @@ const Register = () => {
   const [operation, setOperation] = useState("");
   const [account, setAccount] = useState("");
   const [pix, setPix] = useState("");
-  const [address, setAddress] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    cepApi(cep)
-      .then((data) => setAddress(data))
-      .catch((error) => console.log());
+    getCep();
   }, [cep]);
 
-  useEffect(() => {
-    setDistrict(address.neighborhood);
-    setCity(address.city);
-    setState(address.state);
-    setPlace(address.street);
-  }, [address]);
+  async function getCep() {
+    try {
+      if (cep.length === 8) {
+        const cepUser = await cepApi(cep);
+
+        const { street, neighborhood, city, state } = cepUser;
+
+        setDistrict(neighborhood);
+        setCity(city);
+        setState(state);
+        setPlace(street);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function showRegistrationPartOne() {
     return (
@@ -130,6 +137,7 @@ const Register = () => {
               type="text"
               value={cep}
               onChange={(e) => setCep(e.target.value)}
+              maxLength={8}
             />
             <Input
               placeholder="Bairro"
