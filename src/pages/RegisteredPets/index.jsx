@@ -29,7 +29,8 @@ const RegisteredPets = () => {
   const [selectedGato, setSelectedGato] = useState(false);
   const [idInstituion, setIdInstituion] = useState("");
   const [dataAnimals, setDataAnimals] = useState([]);
-  const [next, setNext] = useState("");
+  const [page, setPage] = useState(0);
+  const [totalPages, setTotalPages] = useState("");
 
   useEffect(() => {
     const data = localStorage.getItem("@storage_Institution");
@@ -45,12 +46,14 @@ const RegisteredPets = () => {
       getAnimals();
     } else if (selectedCachorro) {
       setDataAnimals([]);
+      setPage(0);
       getDogs();
     } else if (selectedGato) {
       setDataAnimals([]);
+      setPage(0);
       getCats();
     }
-  }, [selectedCachorro, selectedCachorro, selectedGato]);
+  }, [selectedCachorro, selectedCachorro, selectedGato, page]);
 
   function changeButtonSelectedAllPets() {
     setSelectedTodosPets(true);
@@ -75,7 +78,7 @@ const RegisteredPets = () => {
       try {
         const response = await api.get(
           "/api/animals/institution",
-          { params: { id: id } },
+          { params: { id: id, page: page } },
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -83,6 +86,7 @@ const RegisteredPets = () => {
         );
 
         setDataAnimals(response.data.content);
+        setTotalPages(response.data.totalPages);
       } catch (error) {
         toast.error("Erro ao obter os pets :(", {
           position: toast.POSITION.TOP_CENTER,
@@ -95,7 +99,7 @@ const RegisteredPets = () => {
     try {
       const response = await api.get(
         "/api/cats/institution",
-        { params: { id: idInstituion } },
+        { params: { id: idInstituion, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -103,6 +107,7 @@ const RegisteredPets = () => {
       );
 
       setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
@@ -114,7 +119,7 @@ const RegisteredPets = () => {
     try {
       const response = await api.get(
         "/api/dogs/institution",
-        { params: { id: idInstituion } },
+        { params: { id: idInstituion, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -122,10 +127,27 @@ const RegisteredPets = () => {
       );
 
       setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os cachorros :(", {
         position: toast.POSITION.TOP_CENTER,
       });
+    }
+  }
+
+  function next() {
+    if (page < totalPages - 1) {
+      setPage(page + 1);
+    } else {
+      toast.error("Opa! Não tem mais pets", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  function back() {
+    if (page > 0) {
+      setPage(page - 1);
     }
   }
 
@@ -161,10 +183,9 @@ const RegisteredPets = () => {
           </ContainerSelectedPet>
           <ContainerPets>
             {dataAnimals.map((item, index) => {
-              // console.log("http://localhost:8080" + item.imagePath);
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={window.location.origin + item.imagePath} />
+                  <ImagePet src={modelo} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
@@ -177,7 +198,9 @@ const RegisteredPets = () => {
             })}
           </ContainerPets>
           <ContainerButtonNext>
-            <ButtonNext>Próximo</ButtonNext>
+            <ButtonNext onClick={() => back()}>Anterior</ButtonNext>{" "}
+            <p>{page}</p>
+            <ButtonNext onClick={() => next()}>Próximo</ButtonNext>
           </ContainerButtonNext>
         </ContainerRegisteredPets>
       </Main>
