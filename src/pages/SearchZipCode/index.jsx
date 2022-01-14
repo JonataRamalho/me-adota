@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Background, Header, Title } from "../../components";
 import { Button, ContainerTile, Form, Input, Main } from "./styles";
 import { ToastContainer, toast } from "react-toastify";
@@ -8,7 +9,11 @@ import cepApi from "cep-promise";
 const SearchZipCode = () => {
   const [cepUser, setCepUser] = useState("");
 
-  async function getCep() {
+  const navigate = useNavigate();
+
+  async function getCep(e) {
+    e.preventDefault();
+
     try {
       const address = await cepApi(cepUser);
 
@@ -22,6 +27,8 @@ const SearchZipCode = () => {
       };
 
       localStorage.setItem("@storage_Address", JSON.stringify(dataAddress));
+
+      navigate("/pesquisar/pets");
     } catch (error) {
       toast.error("CEP não encontrado! ", {
         position: toast.POSITION.TOP_CENTER,
@@ -36,16 +43,14 @@ const SearchZipCode = () => {
         <ContainerTile>
           <Title content="Precisamos do seu cep para facilitar a nossa pesquisa 😁" />
         </ContainerTile>
-        <Form>
+        <Form onSubmit={getCep}>
           <Input
             placeholder="Ex: 57084040"
             value={cepUser}
             onChange={(e) => setCepUser(e.target.value)}
             maxLength={8}
           />
-          <Button to="/pesquisar/pets" onClick={() => getCep()}>
-            Pesquisar
-          </Button>
+          <Button type="submit">Pesquisar</Button>
         </Form>
       </Main>
       <ToastContainer />
