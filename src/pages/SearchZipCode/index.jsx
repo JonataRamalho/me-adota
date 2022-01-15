@@ -28,7 +28,7 @@ const SearchZipCode = () => {
 
       localStorage.setItem("@storage_Address", JSON.stringify(dataAddress));
 
-      navigate("/pesquisar/pets");
+      navigate("/pesquisar/instituicoes");
     } catch (error) {
       toast.error("CEP não encontrado! ", {
         position: toast.POSITION.TOP_CENTER,
