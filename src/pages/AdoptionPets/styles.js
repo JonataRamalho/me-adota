@@ -2,10 +2,14 @@ import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Main = styled.main`
+  height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+
+  /* background-color: red; */
 `;
 
 export const ContainerButtonBack = styled.div`
@@ -85,6 +89,11 @@ export const Input = styled.input`
 
 export const ContainerAdoptionPets = styled.div`
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  /* background-color: aliceblue; */
 `;
 
 export const ContainerSelectedPet = styled.div`
@@ -126,8 +135,10 @@ export const ContainerPets = styled.div`
   margin-top: 16px;
   margin-left: 32px;
 
+  /* width: 100%; */
+  /* background-color: red; */
   display: grid;
-  align-self: center;
+  /* align-self: center; */
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   row-gap: 16px;
 `;
@@ -174,18 +185,22 @@ export const Detail = styled.p`
   font-weight: 500;
 `;
 
-export const ContainerButton = styled.div`
-  margin-top: 16px;
-  margin-right: 32px;
+export const ContainerPage = styled.div`
+  width: 100%;
 
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+`;
+
+export const ContainerButton = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const Button = styled.button`
-  width: 128px;
-  height: 36px;
-
   border: none;
   cursor: pointer;
   transition: 0.2s ease-in;
@@ -193,15 +208,24 @@ export const Button = styled.button`
   font-size: 14px;
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-weight: bold;
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${(props) => props.theme.colors.detail};
 
-  border-radius: 6px;
+  margin-right: 16px;
+  margin-left: 16px;
 
-  background-color: ${(props) => props.theme.colors.primary};
+  background-color: transparent;
 
   &:hover {
-    background-color: ${(props) => props.theme.colors.background};
+    color: ${(props) => props.theme.colors.tertiary};
   }
+`;
+
+export const Number = styled.p`
+  color: ${(props) => props.theme.colors.detail};
+
+  font-family: ${(props) => props.theme.fonts.montserrat};
+  font-size: 14px;
+  font-weight: 500;
 `;
 
 export const ContainerSearch = styled.div`
