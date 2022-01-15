@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Main = styled.main`
   display: flex;
@@ -47,13 +46,13 @@ export const Input = styled.input`
   }
 `;
 
-export const Button = styled(Link)`
+export const Button = styled.button`
   width: 204px;
   height: 40px;
 
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 
   border-radius: 40px;
   text-decoration: none;

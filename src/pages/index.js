@@ -9,3 +9,4 @@ export { default as SearchZipCode } from "./SearchZipCode";
 export { default as AdoptionPets } from "./AdoptionPets";
 export { default as Pet } from "./Pet";
 export { default as Instituion } from "./Instituion";
+export { default as InstitutionList } from "./InstitutionList";

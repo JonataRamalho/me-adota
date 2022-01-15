@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Background, Header, Title } from "../../components";
 import {
   Button,
@@ -12,9 +12,55 @@ import {
 } from "./styles";
 
 import arrowLeft from "../../assets/arrow-left.svg";
+import api from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import cepApi from "cep-promise";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [page, setPage] = useState(0);
+  const [nameInstituion, setNameInstituion] = useState("");
+  const [phone, setPhone] = useState("");
+  const [cnpj, setCnpj] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+  const [cep, setCep] = useState("");
+  const [district, setDistrict] = useState("");
+  const [city, setCity] = useState("");
+  const [place, setPlace] = useState("");
+  const [state, setState] = useState("");
+  const [instagram, setInstagram] = useState("");
+  const [facebook, setFacebook] = useState("");
+  const [bank, setBank] = useState("");
+  const [agency, setAgency] = useState("");
+  const [operation, setOperation] = useState("");
+  const [account, setAccount] = useState("");
+  const [pix, setPix] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getCep();
+  }, [cep]);
+
+  async function getCep() {
+    try {
+      if (cep.length === 8) {
+        const cepUser = await cepApi(cep);
+
+        const { street, neighborhood, city, state } = cepUser;
+
+        setDistrict(neighborhood);
+        setCity(city);
+        setState(state);
+        setPlace(street);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   function showRegistrationPartOne() {
     return (
@@ -22,18 +68,52 @@ const Register = () => {
         <Title content="Cadastre-se para ajudar os pets a encontrar um lar!" />
         <Form>
           <ContainerInputs>
-            <Input placeholder="Nome da Instituição" type="text" />
-            <Input placeholder="Telefone" type="tel" />
+            <Input
+              placeholder="Nome da Instituição"
+              type="text"
+              value={nameInstituion}
+              onChange={(e) => setNameInstituion(e.target.value)}
+            />
+            <Input
+              placeholder="Telefone"
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+            />
           </ContainerInputs>
           <ContainerInputs>
-            <Input placeholder="CNPJ" type="text" />
-            <Input placeholder="Email" type="email" />
+            <Input
+              placeholder="CNPJ"
+              type="text"
+              value={cnpj}
+              onChange={(e) => setCnpj(e.target.value)}
+            />
+            <Input
+              placeholder="Email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </ContainerInputs>
           <ContainerInputs>
-            <Input placeholder="Senha" type="password" />
-            <Input placeholder="Digite novamente a senha" type="password" />
+            <Input
+              placeholder="Senha"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Input
+              placeholder="Digite novamente a senha"
+              type="password"
+              value={passwordConfirmation}
+              onChange={(e) => setPasswordConfirmation(e.target.value)}
+            />
           </ContainerInputs>
-          <Button type="button" check={true} onClick={() => setPage(1)}>
+          <Button
+            type="button"
+            check={true}
+            onClick={() => checkRegistrationFieldsPartOne()}
+          >
             Avançar
           </Button>
         </Form>
@@ -52,15 +132,48 @@ const Register = () => {
         <Title content="Coloque o endereço da ong 😉" />
         <Form>
           <ContainerInputs>
-            <Input placeholder="CEP" type="text" />
-            <Input placeholder="Bairro" type="text" />
+            <Input
+              placeholder="CEP"
+              type="text"
+              value={cep}
+              onChange={(e) => setCep(e.target.value)}
+              maxLength={8}
+            />
+            <Input
+              placeholder="Bairro"
+              type="text"
+              value={district}
+              onChange={(e) => setDistrict(e.target.value)}
+            />
           </ContainerInputs>
           <ContainerInputs>
-            <Input placeholder="Cidade" type="text" />
-            <Input placeholder="Estado" type="text" />
+            <Input
+              placeholder="Cidade"
+              type="text"
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+            />
+            <Input
+              placeholder="Estado"
+              type="text"
+              value={state}
+              onChange={(e) => setState(e.target.value)}
+            />
+          </ContainerInputs>
+          <ContainerInputs>
+            <Input
+              placeholder="Rua/Conjunto"
+              type="text"
+              value={place}
+              onChange={(e) => setPlace(e.target.value)}
+            />
           </ContainerInputs>
 
-          <Button type="button" check={true} onClick={() => setPage(2)}>
+          <Button
+            type="button"
+            check={true}
+            onClick={() => checkRegistrationFieldsPartTwo()}
+          >
             Avançar
           </Button>
         </Form>
@@ -79,8 +192,18 @@ const Register = () => {
         <Title content="Falta pouco! Estamos perto de finalizar 🐶" />
         <Form>
           <ContainerInputs>
-            <Input placeholder="Coloque seu Instagram" type="text" />
-            <Input placeholder="Coloque seu Facebook" type="text" />
+            <Input
+              placeholder="Coloque o link do Instagram"
+              type="text"
+              value={instagram}
+              onChange={(e) => setInstagram(e.target.value)}
+            />
+            <Input
+              placeholder="Coloque o link do Facebook"
+              type="text"
+              value={facebook}
+              onChange={(e) => setFacebook(e.target.value)}
+            />
           </ContainerInputs>
 
           <Button type="button" check={true} onClick={() => setPage(3)}>
@@ -100,20 +223,45 @@ const Register = () => {
           </ButtonBack>
         </ContainerButtonBack>
         <Title content="Coloque seus dados bancários para receber doações!" />
-        <Form>
+        <Form onSubmit={handleRegister}>
           <ContainerInputs>
-            <Input placeholder="Banco" type="text" />
-            <Input placeholder="Agência" type="text" />
+            <Input
+              placeholder="Banco"
+              type="text"
+              value={bank}
+              onChange={(e) => setBank(e.target.value)}
+            />
+            <Input
+              placeholder="Agência"
+              type="text"
+              value={agency}
+              onChange={(e) => setAgency(e.target.value)}
+            />
           </ContainerInputs>
           <ContainerInputs>
-            <Input placeholder="Operação" type="text" />
-            <Input placeholder="Conta" type="text" />
+            <Input
+              placeholder="Operação"
+              type="text"
+              value={operation}
+              onChange={(e) => setOperation(e.target.value)}
+            />
+            <Input
+              placeholder="Conta"
+              type="text"
+              value={account}
+              onChange={(e) => setAccount(e.target.value)}
+            />
           </ContainerInputs>
           <ContainerInputs>
-            <Input placeholder="Pix" type="text" />
+            <Input
+              placeholder="Pix"
+              type="text"
+              value={pix}
+              onChange={(e) => setPix(e.target.value)}
+            />
           </ContainerInputs>
 
-          <Button type="button" check={false}>
+          <Button type="submit" check={false}>
             Cadastrar
           </Button>
         </Form>
@@ -133,10 +281,102 @@ const Register = () => {
     }
   }
 
+  function checkRegistrationFieldsPartOne() {
+    if (
+      !!nameInstituion &&
+      !!phone &&
+      !!cnpj &&
+      !!email &&
+      !!password &&
+      !!passwordConfirmation
+    ) {
+      checkPasswords();
+    } else {
+      toast.error("Campos não preenchidos!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  function checkPasswords() {
+    if (password === passwordConfirmation) {
+      setPage(1);
+    } else {
+      toast.error("Digite novamente a senha! ", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  function checkRegistrationFieldsPartTwo() {
+    if (!!cep && !!district && !!city && !!state) {
+      setPage(2);
+    } else {
+      toast.error("Campos não preenchidos!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault();
+
+    const dataInstituion = {
+      username: email,
+      password: password,
+      name: nameInstituion,
+      facebook: facebook,
+      instagram: instagram,
+      contact: phone,
+      place: place,
+      district: district,
+      zip_code: cep,
+      city: city,
+      state: state,
+      cnpj: cnpj,
+      account: {
+        bank,
+        number: account,
+        operation,
+        agency,
+        pix,
+      },
+    };
+
+    try {
+      const responseInstituion = await api.post("/api/signup", dataInstituion, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+
+      if ((await responseInstituion).status === 201) {
+        toast.success(
+          "Cadastro realizado com sucesso!",
+          "Você será redirecionado para login!",
+          {
+            position: toast.POSITION.TOP_CENTER,
+          }
+        );
+
+        setTimeout(() => {
+          navigate("/login");
+        }, 6000);
+      }
+    } catch (error) {
+      toast.error("Esse email está em uso!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
   return (
     <Background>
       <Header type={0} />
       {renderPage()}
+      <ToastContainer />
     </Background>
   );
 };

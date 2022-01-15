@@ -3,6 +3,7 @@ import {
   AdoptionPets,
   Home,
   Instituion,
+  InstitutionList,
   Login,
   Options,
   PasswordRecovery,
@@ -25,10 +26,12 @@ const Routes = () => {
         <Route path="/menu/cadastrar-pet" element={<RegisterPet />} />
         <Route path="/menu/pets" element={<RegisteredPets />} />
         <Route path="/pesquisar" element={<SearchZipCode />} />
-        <Route path="/pesquisar/pets" element={<AdoptionPets />} />
-        <Route path="/pesquisar/pets/pet" element={<Pet />} />
+        <Route path="/pesquisar/instituicoes" element={<InstitutionList />} />
+        <Route path="/pesquisar/instituicoes/pets" element={<AdoptionPets />} />
+        <Route path="/pesquisar/instituicoes/pets/pet" element={<Pet />} />
+
         <Route
-          path="/pesquisar/pets/pet/instituicao"
+          path="/pesquisar/instituicoes/pets/pet/instituicao"
           element={<Instituion />}
         />
       </Switch>
