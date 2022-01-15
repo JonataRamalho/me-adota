@@ -27,7 +27,7 @@ const RegisteredPets = () => {
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
-  const [idInstituion, setIdInstituion] = useState("");
+  const [idInstitution, setIdInstitution] = useState("");
   const [dataAnimals, setDataAnimals] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState("");
@@ -37,7 +37,7 @@ const RegisteredPets = () => {
 
     const { id } = JSON.parse(data);
 
-    setIdInstituion(id);
+    setIdInstitution(id);
     getAnimals(id);
   }, []);
 
@@ -73,7 +73,7 @@ const RegisteredPets = () => {
     setSelectedCachorro(false);
   }
 
-  async function getAnimals(id = idInstituion) {
+  async function getAnimals(id = idInstitution) {
     if (id !== "") {
       try {
         const response = await api.get(
@@ -99,7 +99,7 @@ const RegisteredPets = () => {
     try {
       const response = await api.get(
         "/api/cats/institution",
-        { params: { id: idInstituion, page: page } },
+        { params: { id: idInstitution, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -119,7 +119,7 @@ const RegisteredPets = () => {
     try {
       const response = await api.get(
         "/api/dogs/institution",
-        { params: { id: idInstituion, page: page } },
+        { params: { id: idInstitution, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
