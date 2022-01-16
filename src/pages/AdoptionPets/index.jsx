@@ -5,7 +5,6 @@ import {
   ButtonBackMenu,
   Button,
   ButtonPet,
-  Checkbox,
   ContainerAdoptionPets,
   ContainerButtonBack,
   ContainerButton,
@@ -19,15 +18,23 @@ import {
   Detail,
   Image,
   ImagePet,
-  Input,
-  Label,
   Main,
   Name,
   TitleSearch,
   ContainerPage,
   Number,
+  ButtonModal,
+  ButtonSearch,
+  ControlLabel,
 } from "./styles";
-import Modal from "@mui/material/Modal";
+import {
+  Modal,
+  Radio,
+  RadioGroup,
+  FormControl,
+  Select,
+  MenuItem,
+} from "@mui/material";
 
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
@@ -42,6 +49,38 @@ const AdoptionPets = () => {
   const [dataAnimals, setDataAnimals] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState("");
+  const [search, setSearch] = useState(false);
+  const [colorPet, setColorPet] = useState([]);
+  const [color, setColor] = useState("");
+  const [gender, setGender] = useState("");
+  const [port, setPort] = useState("");
+  const [castration, setCastration] = useState("");
+  const [age, setAge] = useState("");
+
+  let colorDogs = [
+    { value: "Amarelo", text: "Amarelo" },
+    { value: "Branco", text: "Branco" },
+    { value: "Bicolor", text: "Bicolor" },
+    { value: "Chocolate", text: "Chocolate" },
+    { value: "Cinza", text: "Cinza" },
+    { value: "Creme", text: "Creme" },
+    { value: "Dourado", text: "Dourado" },
+    { value: "Ruivo", text: "Ruivo" },
+    { value: "Marrom", text: "Marrom" },
+    { value: "Preto", text: "Preto" },
+  ];
+
+  let colorCat = [
+    { value: "Bege", text: "Bege" },
+    { value: "Branco", text: "Branco" },
+    { value: "Bicolor", text: "Bicolor" },
+    { value: "Cinza", text: "Cinza" },
+    { value: "Creme", text: "Creme" },
+    { value: "Laranja", text: "Laranja" },
+    { value: "Marrom", text: "Marrom" },
+    { value: "Preto", text: "Preto" },
+    { value: "Tricolor", text: "Tricolor" },
+  ];
 
   useEffect(() => {
     const data = localStorage.getItem("@storage_Institution");
@@ -53,42 +92,77 @@ const AdoptionPets = () => {
   }, []);
 
   useEffect(() => {
-    if (selectedTodosPets) {
+    if (selectedTodosPets && search !== true) {
       getAnimals();
-    } else if (selectedCachorro) {
+    } else if (selectedCachorro && search !== true) {
       setDataAnimals([]);
-      setPage(0);
+      // setPage(0);
+
       getDogs();
-    } else if (selectedGato) {
+    } else if (selectedGato && search !== true) {
       setDataAnimals([]);
-      setPage(0);
+      // setPage(0);
       getCats();
+    } else if (search) {
+      if (selectedTodosPets) {
+        setDataAnimals([]);
+        // setPage(0);
+        getAnimalsSearch();
+      } else if (selectedCachorro) {
+        getDogsSearch();
+      } else if (selectedGato) {
+        getCatsSearch();
+      }
     }
-  }, [selectedCachorro, selectedCachorro, selectedGato, page]);
+  }, [selectedCachorro, selectedCachorro, selectedGato, page, search]);
+
+  useEffect(() => {
+    if (selectedCachorro) {
+      setColorPet(colorDogs);
+    } else if (selectedGato) {
+      setColorPet(colorCat);
+    }
+  }, [selectedCachorro, selectedGato]);
 
   function changeButtonSelectedAllPets() {
     setSelectedTodosPets(true);
     setSelectedCachorro(false);
     setSelectedGato(false);
+    setSearch(false);
   }
 
   function changeSelectedButtonDog() {
     setSelectedCachorro(true);
     setSelectedTodosPets(false);
     setSelectedGato(false);
+    setSearch(false);
   }
 
   function changeSelectedButtonCat() {
     setSelectedGato(true);
     setSelectedTodosPets(false);
     setSelectedCachorro(false);
+    setSearch(false);
   }
 
   function handleOpen() {
     setOpen(true);
+    setSelectedTodosPets(false);
+    setSelectedGato(false);
+    setSelectedCachorro(false);
+    setPort("");
+    setColor("");
+    setGender("");
+    setCastration("");
+    setAge("");
+    setSearch(false);
   }
 
   function handleClose() {
+    if (selectedGato !== true && selectedCachorro !== true) {
+      setSelectedTodosPets(true);
+      getAnimals();
+    }
     setOpen(false);
   }
 
@@ -170,6 +244,102 @@ const AdoptionPets = () => {
     }
   }
 
+  function handleSearch() {
+    setOpen(false);
+
+    setSearch(true);
+
+    if (selectedCachorro === false && selectedGato === false) {
+      setSelectedTodosPets(true);
+      setSelectedCachorro(false);
+      setSelectedGato(false);
+    } else if (selectedCachorro === true) {
+      setSelectedTodosPets(false);
+      setSelectedGato(false);
+    } else if (selectedGato === true) {
+      setSelectedTodosPets(false);
+      setSelectedCachorro(false);
+    }
+  }
+
+  async function getAnimalsSearch() {
+    try {
+      const response = await api.get(
+        "/api/animals/institution",
+        { params: { id: idInstitution, page: page } },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      toast.error("Erro ao obter os pets :(", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  async function getCatsSearch() {
+    try {
+      const response = await api.get(
+        "/api/cats/find",
+        {
+          params: {
+            color: color,
+            gender: gender,
+            castration: castration,
+            age: age,
+            page: page,
+          },
+        },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // console.log(response.data.content);
+      setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      toast.error("Erro ao obter os gatos :(", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
+  async function getDogsSearch() {
+    try {
+      const response = await api.get(
+        "/api/dogs/find",
+        {
+          params: {
+            color: color,
+            gender: gender,
+            castration: castration,
+            age: age,
+            page: page,
+            size_dog: port,
+          },
+        },
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      toast.error("Erro ao obter os gatos :(", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
   return (
     <Background>
       <Main>
@@ -178,7 +348,7 @@ const AdoptionPets = () => {
             <Image src={arrowLeft} /> Voltar para pesquisar cep
           </ButtonBackMenu>
 
-          <Input placeholder="Ex: Cinza" onClick={handleOpen} />
+          <ButtonModal onClick={handleOpen}>Pesquise seu pet</ButtonModal>
           <Modal
             open={open}
             onClose={handleClose}
@@ -186,90 +356,249 @@ const AdoptionPets = () => {
             aria-describedby="modal-modal-description"
           >
             <ContainerSearch>
-              <Input
-                placeholder="Ex: Cinza"
-                onClick={handleOpen}
-                modal={true}
-              />
               <ContainerSearchPet>
                 <TitleSearch>Qual é o pet?</TitleSearch>
                 <ContainerCheckbox>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Cachoro
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Gato
-                  </Label>
+                  <RadioGroup
+                    row
+                    aria-label="pet"
+                    defaultValue=""
+                    name="radio-buttons-group"
+                  >
+                    <ControlLabel
+                      value="cachorro"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={() => {
+                            setSelectedCachorro(true);
+                            setSelectedGato(false);
+                          }}
+                        />
+                      }
+                      label="Cachorro"
+                    />
+                    <ControlLabel
+                      value="gato"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={() => {
+                            setSelectedCachorro(false);
+                            setSelectedGato(true);
+                          }}
+                        />
+                      }
+                      label="Gato"
+                    />
+                  </RadioGroup>
                 </ContainerCheckbox>
               </ContainerSearchPet>
-              <ContainerSearchPet>
-                <TitleSearch>Porte?</TitleSearch>
-                <ContainerCheckbox>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Grande
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Médio
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Pequeno
-                  </Label>
-                </ContainerCheckbox>
-              </ContainerSearchPet>
+
+              {selectedGato ? (
+                <></>
+              ) : (
+                <ContainerSearchPet>
+                  <TitleSearch>Porte?</TitleSearch>
+                  <ContainerCheckbox>
+                    <RadioGroup
+                      row
+                      aria-label="port"
+                      defaultValue=""
+                      name="radio-buttons-group"
+                    >
+                      <ControlLabel
+                        value="grande"
+                        control={
+                          <Radio
+                            size="small"
+                            onChange={(e) => {
+                              setPort(e.target.value);
+                            }}
+                          />
+                        }
+                        label="Grande"
+                      />
+                      <ControlLabel
+                        value="medio"
+                        control={
+                          <Radio
+                            size="small"
+                            onChange={(e) => {
+                              setPort(e.target.value);
+                            }}
+                          />
+                        }
+                        label="Médio"
+                      />
+                      <ControlLabel
+                        value="pequeno"
+                        control={
+                          <Radio
+                            size="small"
+                            onChange={(e) => {
+                              setPort(e.target.value);
+                            }}
+                          />
+                        }
+                        label="Pequeno"
+                      />
+                    </RadioGroup>
+                  </ContainerCheckbox>
+                </ContainerSearchPet>
+              )}
+              {selectedTodosPets === false &&
+              selectedGato === false &&
+              selectedCachorro === false ? (
+                <></>
+              ) : (
+                <ContainerSearchPet>
+                  <TitleSearch>Cor?</TitleSearch>
+                  <ContainerCheckbox>
+                    <FormControl sx={{ m: 1, minWidth: 325 }}>
+                      <Select
+                        labelId="color"
+                        id="color"
+                        displayEmpty
+                        defaultValue=""
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
+                      >
+                        {colorPet.map((item, index) => {
+                          return (
+                            <MenuItem key={item.value} value={item.value}>
+                              {item.text}
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                  </ContainerCheckbox>
+                </ContainerSearchPet>
+              )}
+
               <ContainerSearchPet>
                 <TitleSearch>Genêro?</TitleSearch>
                 <ContainerCheckbox>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Macho
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Fêmea
-                  </Label>
+                  <RadioGroup
+                    row
+                    aria-label="gender"
+                    defaultValue=""
+                    name="radio-buttons-group"
+                  >
+                    <ControlLabel
+                      value="macho"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setGender(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Macho"
+                    />
+                    <ControlLabel
+                      value="femea"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setGender(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Fêmea"
+                    />
+                  </RadioGroup>
                 </ContainerCheckbox>
               </ContainerSearchPet>
               <ContainerSearchPet>
                 <TitleSearch>Castrado?</TitleSearch>
                 <ContainerCheckbox>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Sim
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Não
-                  </Label>
+                  <RadioGroup
+                    row
+                    aria-label="castrated"
+                    defaultValue=""
+                    name="radio-buttons-group"
+                  >
+                    <ControlLabel
+                      value="s"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setCastration(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Sim"
+                    />
+                    <ControlLabel
+                      value="n"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setCastration(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Não"
+                    />
+                  </RadioGroup>
                 </ContainerCheckbox>
               </ContainerSearchPet>
               <ContainerSearchPet>
                 <TitleSearch>Faixa Etária?</TitleSearch>
                 <ContainerCheckbox>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Adulto
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Filhote
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Jovem
-                  </Label>
-                  <Label>
-                    <Checkbox type="checkbox" />
-                    Sênior
-                  </Label>
+                  <RadioGroup
+                    row
+                    aria-label="age"
+                    defaultValue=""
+                    name="radio-buttons-group"
+                  >
+                    <ControlLabel
+                      value="adulto"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setAge(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Adulto"
+                    />
+                    <ControlLabel
+                      value="jovem"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setAge(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Jovem"
+                    />
+                    <ControlLabel
+                      value="senior"
+                      control={
+                        <Radio
+                          size="small"
+                          onChange={(e) => {
+                            setAge(e.target.value);
+                          }}
+                        />
+                      }
+                      label="Sênior"
+                    />
+                  </RadioGroup>
                 </ContainerCheckbox>
               </ContainerSearchPet>
               <ContainerSearchPet button={true}>
-                <Button>Pesquisar</Button>
+                <ButtonSearch onClick={handleSearch}>Pesquisar</ButtonSearch>
               </ContainerSearchPet>
             </ContainerSearch>
           </Modal>

@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import { FormControlLabel } from "@mui/material";
 
 export const Main = styled.main`
   height: 100%;
@@ -44,46 +45,29 @@ export const ButtonBackMenu = styled(Link)`
   align-items: center;
 `;
 
-export const ButtonBack = styled.a`
-  width: 100px;
-  cursor: pointer;
-
-  color: ${(props) => props.theme.colors.tertiary};
-
-  text-decoration: none;
-  font-family: ${(props) => props.theme.fonts.montserrat};
-  font-size: 18px;
-  font-weight: bold;
-
-  transition: 0.2s ease-in;
-
-  margin-top: 24px;
-  margin-left: 24px;
-
-  display: flex;
-  align-items: center;
-`;
-
-export const Input = styled.input`
-  width: 336px;
+export const ButtonModal = styled.button`
+  width: 208px;
   height: 40px;
 
   margin-top: 16px;
   margin-right: ${(props) => (props.modal ? "" : "24px")};
-  padding-left: 16px;
 
   border-radius: 64px;
   outline: none;
+  cursor: pointer;
   border: none;
-  background-color: ${(props) => props.theme.colors.input};
-  color: ${(props) => props.theme.colors.text};
+
+  background-color: ${(props) => props.theme.colors.primary};
+  color: ${(props) => props.theme.colors.secondary};
 
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bold;
 
-  ::-webkit-input-placeholder {
-    color: ${(props) => props.theme.colors.tertiary};
+  transition: 0.2s ease-in;
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.background};
   }
 `;
 
@@ -231,7 +215,7 @@ export const Number = styled.p`
 export const ContainerSearch = styled.div`
   background-color: ${(props) => props.theme.colors.secondary};
   width: 448px;
-  height: 520px;
+  height: 632px;
   border-radius: 24px;
 
   position: absolute;
@@ -243,6 +227,7 @@ export const ContainerSearch = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerSearchPet = styled.div`
@@ -252,6 +237,7 @@ export const ContainerSearchPet = styled.div`
   ${(props) => {
     if (props.button) {
       return css`
+        margin-top: 8px;
         display: flex;
         justify-content: end;
       `;
@@ -261,7 +247,7 @@ export const ContainerSearchPet = styled.div`
 
 export const TitleSearch = styled.p`
   width: 100%;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 
   font-family: ${(props) => props.theme.fonts.montserrat};
   font-size: 16px;
@@ -271,23 +257,30 @@ export const TitleSearch = styled.p`
 
 export const ContainerCheckbox = styled.div`
   margin-top: 12px;
-
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-  column-gap: 16px;
-  row-gap: 8px;
 `;
 
-export const Label = styled.label`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  font-family: ${(props) => props.theme.fonts.montserrat};
+export const ControlLabel = styled(FormControlLabel)`
+  font-family: ${(props) => props.theme.fonts.montserrat} !important;
+`;
+
+export const ButtonSearch = styled.button`
+  width: 160px;
+  height: 36px;
+
+  border-radius: 32px;
+  border: none;
+
+  cursor: pointer;
+  transition: 0.2s ease-in;
+
   font-size: 14px;
-`;
+  font-family: ${(props) => props.theme.fonts.montserrat};
+  font-weight: bold;
+  color: ${(props) => props.theme.colors.secondary};
 
-export const Checkbox = styled.input`
-  width: 14px;
-  height: 14px;
-  margin-right: 8px;
+  background-color: ${(props) => props.theme.colors.primary};
+
+  &:hover {
+    background-color: ${(props) => props.theme.colors.background};
+  }
 `;
