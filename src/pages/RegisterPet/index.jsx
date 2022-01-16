@@ -61,11 +61,13 @@ const RegisterPet = () => {
   }, []);
 
   useEffect(() => {
-    const data = localStorage.getItem("@storage_Institution");
+    try {
+      const data = localStorage.getItem("@storage_Institution");
 
-    const { id } = JSON.parse(data);
+      const { id } = JSON.parse(data);
 
-    setIdInstituion(id);
+      setIdInstituion(id);
+    } catch (error) {}
   }, []);
 
   let colorDogs = [

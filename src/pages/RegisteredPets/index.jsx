@@ -33,12 +33,14 @@ const RegisteredPets = () => {
   const [totalPages, setTotalPages] = useState("");
 
   useEffect(() => {
-    const data = localStorage.getItem("@storage_Institution");
+    try {
+      const data = localStorage.getItem("@storage_Institution");
 
-    const { id } = JSON.parse(data);
+      const { id } = JSON.parse(data);
 
-    setIdInstitution(id);
-    getAnimals(id);
+      setIdInstitution(id);
+      getAnimals(id);
+    } catch (error) {}
   }, []);
 
   useEffect(() => {

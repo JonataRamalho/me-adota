@@ -16,11 +16,13 @@ import { useEffect, useState } from "react";
 
 const Header = (props) => {
   useEffect(() => {
-    const data = localStorage.getItem("@storage_Institution");
+    try {
+      const data = localStorage.getItem("@storage_Institution");
 
-    const { name } = JSON.parse(data);
+      const { name } = JSON.parse(data);
 
-    setNameInstituion(name);
+      setNameInstituion(name);
+    } catch (error) {}
   }, []);
 
   const [nameInstituion, setNameInstituion] = useState("");
