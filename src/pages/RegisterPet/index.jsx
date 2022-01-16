@@ -143,7 +143,7 @@ const RegisterPet = () => {
               </Option>
               <Option value="Jovem">Jovem</Option>
               <Option value="Adulto">Adulto</Option>
-              <Option value="Sênior<">Sênior</Option>
+              <Option value="Sênior">Sênior</Option>
             </Select>
             <Select
               color={gender}
