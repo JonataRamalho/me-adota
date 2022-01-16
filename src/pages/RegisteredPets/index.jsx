@@ -183,9 +183,10 @@ const RegisteredPets = () => {
           </ContainerSelectedPet>
           <ContainerPets>
             {dataAnimals.map((item, index) => {
+              // console.log(item);
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={modelo} />
+                  <ImagePet src={`http://localhost:8080/${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
