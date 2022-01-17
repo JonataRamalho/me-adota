@@ -89,9 +89,13 @@ const Login = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
+          "Access-Control-Request-Headers": "Authorization",
         },
       });
+
+      console.log(response.headers);
+      // console.log(response.headers.get("Authorization"));
+      // console.log(response.headers.get("authorization"));
 
       // const request = response.headers.authorization;
 
@@ -101,6 +105,7 @@ const Login = () => {
 
       navigate("/menu");
     } catch (err) {
+      console.log(err);
       toast.error("Erro ao realizar login!", {
         position: toast.POSITION.TOP_CENTER,
       });
