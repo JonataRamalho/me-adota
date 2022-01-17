@@ -27,7 +27,10 @@ const Routes = () => {
         <Route path="/menu/pets" element={<RegisteredPets />} />
         <Route path="/pesquisar" element={<SearchZipCode />} />
         <Route path="/pesquisar/instituicoes" element={<InstitutionList />} />
-        <Route path="/pesquisar/instituicoes/pets" element={<AdoptionPets />} />
+        <Route
+          path="/pesquisar/instituicoes/:id/pets"
+          element={<AdoptionPets />}
+        />
         <Route path="/pesquisar/instituicoes/pets/pet" element={<Pet />} />
 
         <Route

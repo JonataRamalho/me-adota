@@ -39,13 +39,14 @@ import {
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
 import { ToastContainer, toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 const AdoptionPets = () => {
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
   const [open, setOpen] = useState(false);
-  const [idInstitution, setIdInstitution] = useState("");
+  // const [idInstitution, setIdInstitution] = useState("");
   const [dataAnimals, setDataAnimals] = useState([]);
   const [page, setPage] = useState(0);
   const [totalPages, setTotalPages] = useState("");
@@ -56,6 +57,8 @@ const AdoptionPets = () => {
   const [port, setPort] = useState("");
   const [castration, setCastration] = useState("");
   const [age, setAge] = useState("");
+
+  const { id } = useParams();
 
   let colorDogs = [
     { value: "Amarelo", text: "Amarelo" },
@@ -83,12 +86,7 @@ const AdoptionPets = () => {
   ];
 
   useEffect(() => {
-    const data = localStorage.getItem("@storage_Institution");
-
-    const { id } = JSON.parse(data);
-
-    setIdInstitution(id);
-    getAnimals(id);
+    getAnimals();
   }, []);
 
   useEffect(() => {
@@ -166,7 +164,7 @@ const AdoptionPets = () => {
     setOpen(false);
   }
 
-  async function getAnimals(id = idInstitution) {
+  async function getAnimals() {
     if (id !== "") {
       try {
         const response = await api.get(
@@ -192,7 +190,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/cats/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -212,7 +210,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/dogs/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -266,7 +264,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/animals/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -301,9 +299,9 @@ const AdoptionPets = () => {
         }
       );
 
-      // console.log(response.data.content);
-      setDataAnimals(response.data.content);
-      setTotalPages(response.data.totalPages);
+      console.log(response.data.content);
+      // setDataAnimals(response.data.content);
+      // setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
@@ -331,8 +329,10 @@ const AdoptionPets = () => {
         }
       );
 
-      setDataAnimals(response.data.content);
-      setTotalPages(response.data.totalPages);
+      console.log(response.data.content);
+
+      // setDataAnimals(response.data.content);
+      // setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
