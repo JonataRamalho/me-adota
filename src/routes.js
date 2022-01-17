@@ -31,7 +31,10 @@ const Routes = () => {
           path="/pesquisar/instituicoes/:id/pets"
           element={<AdoptionPets />}
         />
-        <Route path="/pesquisar/instituicoes/pets/pet" element={<Pet />} />
+        <Route
+          path="/pesquisar/instituicoes/:id/pets/:idPet"
+          element={<Pet />}
+        />
 
         <Route
           path="/pesquisar/instituicoes/pets/pet/instituicao"
