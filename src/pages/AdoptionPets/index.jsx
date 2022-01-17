@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import api from "../../services/api";
 import { Background, Title } from "../../components";
 import {
@@ -39,16 +40,15 @@ import {
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
 import { ToastContainer, toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 
 const AdoptionPets = () => {
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
   const [open, setOpen] = useState(false);
-  // const [idInstitution, setIdInstitution] = useState("");
   const [dataAnimals, setDataAnimals] = useState([]);
   const [page, setPage] = useState(0);
+  const [pageSearch, setPageSearch] = useState(1);
   const [totalPages, setTotalPages] = useState("");
   const [search, setSearch] = useState(false);
   const [colorPet, setColorPet] = useState([]);
@@ -227,18 +227,34 @@ const AdoptionPets = () => {
   }
 
   function next() {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
+    if (search) {
+      if (pageSearch < totalPages - 1) {
+        setPageSearch(pageSearch + 1);
+      } else {
+        toast.error("Opa! Não tem mais pets", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     } else {
-      toast.error("Opa! Não tem mais pets", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      if (page < totalPages - 1) {
+        setPage(page + 1);
+      } else {
+        toast.error("Opa! Não tem mais pets", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     }
   }
 
   function back() {
-    if (page > 0) {
-      setPage(page - 1);
+    if (search) {
+      if (pageSearch > 1) {
+        setPageSearch(pageSearch - 1);
+      }
+    } else {
+      if (page > 0) {
+        setPage(page - 1);
+      }
     }
   }
 
@@ -290,7 +306,7 @@ const AdoptionPets = () => {
             gender: gender,
             castration: castration,
             age: age,
-            page: page,
+            page: pageSearch,
           },
         },
         {
@@ -299,9 +315,8 @@ const AdoptionPets = () => {
         }
       );
 
-      console.log(response.data.content);
-      // setDataAnimals(response.data.content);
-      // setTotalPages(response.data.totalPages);
+      setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
@@ -319,7 +334,7 @@ const AdoptionPets = () => {
             gender: gender,
             castration: castration,
             age: age,
-            page: page,
+            page: pageSearch,
             size_dog: port,
           },
         },
@@ -329,10 +344,8 @@ const AdoptionPets = () => {
         }
       );
 
-      console.log(response.data.content);
-
-      // setDataAnimals(response.data.content);
-      // setTotalPages(response.data.totalPages);
+      setDataAnimals(response.data.content);
+      setTotalPages(response.data.totalPages);
     } catch (error) {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
@@ -630,7 +643,10 @@ const AdoptionPets = () => {
           <ContainerPets>
             {dataAnimals.map((item, index) => {
               return (
-                <ContainerPet key={index} to="/pesquisar/pets/pet">
+                <ContainerPet
+                  key={index}
+                  to={`/pesquisar/instituicoes/${id}/pets/${item.id}`}
+                >
                   <ImagePet src={modelo} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
@@ -647,7 +663,7 @@ const AdoptionPets = () => {
         <ContainerPage>
           <ContainerButton>
             <Button onClick={() => back()}>Anterior</Button>
-            <Number>{page}</Number>
+            <Number>{search ? pageSearch : page}</Number>
             <Button onClick={() => next()}> Próximo</Button>
           </ContainerButton>
         </ContainerPage>
