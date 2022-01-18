@@ -68,6 +68,7 @@ const Pet = () => {
     }
   }
 
+  console.log(" ---> ", dataPet);
   return (
     <Background>
       <Main>
@@ -79,7 +80,7 @@ const Pet = () => {
         <Container>
           <ContainerPet>
             <ContainerImagePet>
-              <ImagePet src={modelo} />
+              <ImagePet src={`http://localhost:3000/${dataPet.imagePath}`} />
               <Button to="/pesquisar/pets/pet/instituicao">
                 Entre em Contato
               </Button>

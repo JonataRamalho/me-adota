@@ -685,18 +685,19 @@ const AdoptionPets = () => {
                 <ContainerPet
                   key={index}
                   to={`/pesquisar/instituicoes/${id}/pets/${item.id}`}
-                  onClick={async () =>
-                    await postPlace(
-                      item.id,
-                      item.size_dog,
-                      item.institution.zip_code,
-                      item.institution.state,
-                      item.institution.city,
-                      item.institution.district
-                    )
-                  }
+                  // onClick={async () =>
+                  //   await postPlace(
+                  //     item.id,
+                  //     item.size_dog,
+                  //     item.institution.zip_code,
+                  //     item.institution.state,
+                  //     item.institution.city,
+                  //     item.institution.district
+                  //   )
+                  // }
                 >
-                  <ImagePet src={modelo} />
+                  {/* No localhost colocar a porta do apache >> Esse 8080 */}
+                  <ImagePet src={`http://localhost:3000/${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
