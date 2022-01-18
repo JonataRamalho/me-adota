@@ -373,7 +373,6 @@ const AdoptionPets = () => {
       animal: { id: idPet },
     });
 
-    console.log(jsonplace);
     try {
       const response = await api.post("/api/place", jsonplace, {
         method: "POST",
@@ -383,11 +382,10 @@ const AdoptionPets = () => {
         },
       });
       if ((await response).status === 201) {
-        console.log("Dado Enviados");
+        // console.log("Dados Enviados");
       }
     } catch (error) {
       console.log("Erro ao enviar os dados");
-      console.log(error.message);
     }
   }
 
@@ -680,21 +678,20 @@ const AdoptionPets = () => {
           </ContainerSelectedPet>
           <ContainerPets>
             {dataAnimals.map((item, index) => {
-              // console.log(item);
               return (
                 <ContainerPet
                   key={index}
                   to={`/pesquisar/instituicoes/${id}/pets/${item.id}`}
-                  // onClick={async () =>
-                  //   await postPlace(
-                  //     item.id,
-                  //     item.size_dog,
-                  //     item.institution.zip_code,
-                  //     item.institution.state,
-                  //     item.institution.city,
-                  //     item.institution.district
-                  //   )
-                  // }
+                  onClick={async () =>
+                    await postPlace(
+                      item.id,
+                      item.size_dog,
+                      item.institution.zip_code,
+                      item.institution.state,
+                      item.institution.city,
+                      item.institution.district
+                    )
+                  }
                 >
                   {/* No localhost colocar a porta do apache >> Esse 8080 */}
                   <ImagePet src={`http://localhost:3000/${item.imagePath}`} />
