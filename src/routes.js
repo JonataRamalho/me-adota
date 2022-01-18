@@ -37,7 +37,7 @@ const Routes = () => {
         />
 
         <Route
-          path="/pesquisar/instituicoes/pets/pet/instituicao"
+          path="/pesquisar/instituicoes/:id/pets/:idPet/:id"
           element={<Instituion />}
         />
       </Switch>

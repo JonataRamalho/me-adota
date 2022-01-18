@@ -68,7 +68,6 @@ const Pet = () => {
     }
   }
 
-  console.log(" ---> ", dataPet);
   return (
     <Background>
       <Main>
@@ -81,7 +80,7 @@ const Pet = () => {
           <ContainerPet>
             <ContainerImagePet>
               <ImagePet src={`http://localhost:3000/${dataPet.imagePath}`} />
-              <Button to="/pesquisar/pets/pet/instituicao">
+              <Button to={`/pesquisar/instituicoes/${id}/pets/${idPet}/${id}`}>
                 Entre em Contato
               </Button>
             </ContainerImagePet>
@@ -98,6 +97,7 @@ const Pet = () => {
               <ContainerAboutPet>
                 <Title>Características</Title>
                 <AboutPet>
+                  {!!dataPet.size_dog ? `${dataPet.size_dog}, ` : ""}
                   {dataPet.color}
                   {personalities.map((item, index) => {
                     return `, ${item.name}`;
