@@ -19,8 +19,8 @@ import api from "../../services/api";
 
 const Login = () => {
   const [page, setPage] = useState(0);
-  const [email, setEmail] = useState("amada@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -93,13 +93,10 @@ const Login = () => {
         },
       });
 
-      console.log(response.headers);
-      // console.log(response.headers.get("Authorization"));
-      // console.log(response.headers.get("authorization"));
-
-      // const request = response.headers.authorization;
-
-      // localStorage.setItem("token", request);
+      localStorage.setItem(
+        "@storage_Token",
+        JSON.stringify(response.headers.authorization)
+      );
 
       getInstituion();
 

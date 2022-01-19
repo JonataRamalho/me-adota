@@ -15,6 +15,8 @@ import logOut from "../../assets/log-out.svg";
 import { useEffect, useState } from "react";
 
 const Header = (props) => {
+  const [nameInstituion, setNameInstituion] = useState("");
+
   useEffect(() => {
     try {
       const data = localStorage.getItem("@storage_Institution");
@@ -24,8 +26,6 @@ const Header = (props) => {
       setNameInstituion(name);
     } catch (error) {}
   }, []);
-
-  const [nameInstituion, setNameInstituion] = useState("");
 
   function showInitialHeader() {
     return (
@@ -55,7 +55,11 @@ const Header = (props) => {
           <ButtonHeader to="/perfil" color={false}>
             <Image src={user} /> {nameInstituion}
           </ButtonHeader>
-          <ButtonHeader to="/" color={true}>
+          <ButtonHeader
+            to="/"
+            onClick={() => localStorage.clear()}
+            color={true}
+          >
             <Image src={logOut} />
             Sair
           </ButtonHeader>
