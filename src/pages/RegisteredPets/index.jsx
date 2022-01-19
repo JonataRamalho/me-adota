@@ -188,7 +188,7 @@ const RegisteredPets = () => {
               // console.log(item);
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={`http://localhost:8080/${item.imagePath}`} />
+                  <ImagePet src={`http://localhost:8080${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
