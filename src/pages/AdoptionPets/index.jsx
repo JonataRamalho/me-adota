@@ -693,8 +693,7 @@ const AdoptionPets = () => {
                     )
                   }
                 >
-                  {/* No localhost colocar a porta do apache >> Esse 8080 */}
-                  <ImagePet src={`http://localhost:3000/${item.imagePath}`} />
+                  <ImagePet src={`http://localhost:80/${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
