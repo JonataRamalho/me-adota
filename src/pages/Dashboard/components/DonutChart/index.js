@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import { ResponsiveContainer, PieChart, Pie, Cell, Legend } from 'recharts';
 import Title from '../Title';
 
 export default function DonutChart(props) {
-  const theme = useTheme();
-
   const { name, nameFirst, nameSecond, valueFirst, valueSecond } = props;
 
   const data = [

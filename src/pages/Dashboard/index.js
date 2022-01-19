@@ -23,8 +23,8 @@ import {
 } from './components/Menu/menu-admin';
 import DonutChart from './components/DonutChart';
 import PieChartGraph from './components/PieChartGraph';
-// import Deposits from './Deposits';
-// import Orders from './Orders';
+import ClusteredBarChartGraph from './components/ClusteredBarChartGraph';
+import LineBarAreaComposedChartGraph from './components/LineBarAreaComposedChartGraph';
 
 function Copyright(props) {
   return (
@@ -94,6 +94,7 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
+  
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -103,20 +104,69 @@ function DashboardContent() {
       p: 2,
       display: 'flex',
       flexDirection: 'column',
-      height: 320,
+      height: 320
     };
   };
+
+  const dataGraphCastracaoPorGeneroTipo = [
+    {
+      name: 'Fêmea',
+      dog: 4000,
+      cat: 2400,
+      amt: 2400,
+    },
+    {
+      name: 'Macho',
+      dog: 3000,
+      cat: 1398,
+      amt: 2210,
+    },
+  ];
+
+  const dataCepByIdadeAndDistrict = [
+    {
+      name: 'Al, Cascata',
+      uv: 590,
+      pv: 800,
+      amt: 1400,
+      cnt: 490,
+    },
+    {
+      name: 'Al, Santos Dumont',
+      uv: 868,
+      pv: 967,
+      amt: 1506,
+      cnt: 590,
+    },
+    {
+      name: 'AL, Tabuleiro do Pinto',
+      uv: 1397,
+      pv: 1098,
+      amt: 989,
+      cnt: 350,
+    },
+    {
+      name: 'AL, Trapiche da Barra',
+      uv: 1480,
+      pv: 1200,
+      amt: 1228,
+      cnt: 480,
+    },
+    {
+      name: 'Al, Tabuleiro dos Martins',
+      uv: 1520,
+      pv: 1108,
+      amt: 1100,
+      cnt: 460,
+    }
+  ];
 
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
         <AppBar position='absolute' open={open}>
-          <Toolbar
-            sx={{
-              pr: '24px', // keep right padding when drawer closed
-            }}
-          >
+          <Toolbar sx={{ pr: '24px' }}>
             <IconButton
               edge='start'
               color='inherit'
@@ -189,9 +239,8 @@ function DashboardContent() {
                 ANIMAIS PESQUISADOS
               </Typography>
             </Grid>
-
+            {/* Charts */}
             <Grid container spacing={3} wrap='nowrap' xs={12}>
-              {/* Charts */}
               <Grid item xs={6} md={8} lg={9}>
                 <Paper sx={configSxPaperChart}>
                   <DonutChart
@@ -217,25 +266,26 @@ function DashboardContent() {
                   />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
-              {/* <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
+            </Grid>
+
+            <Grid container spacing={3} wrap='nowrap' xs={12}>
+              <Grid item xs={6} md={8} lg={9}>
+                <Paper sx={configSxPaperChart}>
+                  <ClusteredBarChartGraph
+                    name='Contagem de castração por gênero e tipo'
+                    data={dataGraphCastracaoPorGeneroTipo}
+                  />
                 </Paper>
-              </Grid> */}
-              {/* Recent Orders */}
-              {/* <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+              </Grid>
+
+              <Grid item xs={6} md={8} lg={9}>
+                <Paper sx={configSxPaperChart}>
+                <LineBarAreaComposedChartGraph
+                    name='Contagem de CEP por idade, estado e distrito'
+                    data={dataCepByIdadeAndDistrict}
+                  />
                 </Paper>
-              </Grid> */}
+              </Grid>
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
