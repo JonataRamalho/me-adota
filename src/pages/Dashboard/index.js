@@ -27,6 +27,20 @@ import ClusteredBarChartGraph from './components/ClusteredBarChartGraph';
 import LineBarAreaComposedChartGraph from './components/LineBarAreaComposedChartGraph';
 import PieChartWithCustomizedLabelGraph from './components/PieChartWithCustomizedLabelGraph';
 
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import Menu from '@mui/icons-material/Menu';
+import Pets from '@mui/icons-material/Pets';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import LayersIcon from '@mui/icons-material/Layers';
+import ExitToApp from '@mui/icons-material/ExitToApp';
+
+import { useNavigate } from 'react-router-dom';
+
 function Copyright(props) {
   return (
     <Typography
@@ -95,6 +109,8 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
+
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -172,9 +188,55 @@ function DashboardContent() {
             </IconButton>
           </Toolbar>
           <Divider />
-          <List>{mainListItems}</List>
+          <List>
+            <>
+              <div>
+                <ListItem
+                  button
+                  onClick={() => {
+                    navigate('/menu/dashboard');
+                  }}
+                >
+                  <ListItemIcon>
+                    <DashboardIcon />
+                  </ListItemIcon>
+                  <ListItemText primary='Dashboard' />
+                </ListItem>
+                <ListItem
+                  button
+                  onClick={() => {
+                    navigate('/menu');
+                  }}
+                >
+                  <ListItemIcon>
+                    <Menu />
+                  </ListItemIcon>
+                  <ListItemText primary='Menu' />
+                </ListItem>
+              </div>
+            </>
+          </List>
+
           <Divider />
-          <List>{secondaryListItems}</List>
+
+          <List>
+            <>
+              <div>
+                <ListSubheader inset>Opções</ListSubheader>
+                <ListItem
+                  button
+                  onClick={() => {
+                    navigate('/');
+                  }}
+                >
+                  <ListItemIcon>
+                    <ExitToApp />
+                  </ListItemIcon>
+                  <ListItemText primary='Sair' />
+                </ListItem>
+              </div>
+            </>
+          </List>
         </Drawer>
         <Box
           component='main'
@@ -251,7 +313,7 @@ function DashboardContent() {
                 <Paper sx={configSxPaperChart}>
                   <PieChartWithCustomizedLabelGraph
                     name='% de idade dos Gatos'
-                    listColors={['#00C49F', '#FF2F30', '#8884d8',]}
+                    listColors={['#00C49F', '#FF2F30', '#8884d8']}
                   />
                 </Paper>
               </Grid>

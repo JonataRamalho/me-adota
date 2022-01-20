@@ -1,5 +1,6 @@
 import * as React from 'react';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
@@ -10,20 +11,18 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import ExitToApp from '@mui/icons-material/ExitToApp';
 
-// import {
-//   Options
-// } from "../../../Options/index";
+import { useNavigate } from "react-router-dom";
+
 
 export const mainListItems = (
   <div>
-    <ListItem button component="" href="/menu/dashboard">
+    <ListItem button href="/menu/dashboard">
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
       <ListItemText primary="Dashboard"/>
     </ListItem>
-    {/* <ListItem button component={<Options />} href="/menu"> */}
-    <ListItem button href="/menu">
+    <ListItem button href="/menu/" >
       <ListItemIcon>
         <Menu />
       </ListItemIcon>
