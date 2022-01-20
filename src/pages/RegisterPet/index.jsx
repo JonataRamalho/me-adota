@@ -42,19 +42,18 @@ const RegisterPet = () => {
   const [image, setImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [idInstituion, setIdInstituion] = useState("");
-
-  const token =
-    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbWFkYUBnbWFpbC5jb20iLCJleHAiOjE2NDI4NjE4Mzh9.L4CPBgGWIpg3rN_051cuV3iOXFQ9PEYKkd0VW9B0W31cKZRL52zNuQ07EGO6ACXVO72ycXct_fem_qtqdtuepg";
+  const [token, setToken] = useState("");
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    getToken();
     if (petType === "Cachorro") {
       setColorPet(colorDogs);
     } else if (petType === "Gato") {
       setColorPet(colorCat);
     }
-  }, [petType]);
+  }, [petType, token]);
 
   useEffect(() => {
     getPersonalities();
@@ -94,6 +93,13 @@ const RegisterPet = () => {
     { value: "Preto", text: "Preto" },
     { value: "Tricolor", text: "Tricolor" },
   ];
+
+  function getToken() {
+    try {
+      const tokenInstitution = localStorage.getItem("@storage_Token");
+      setToken(JSON.parse(tokenInstitution));
+    } catch (error) {}
+  }
 
   function showRegistrationPartOne() {
     return (

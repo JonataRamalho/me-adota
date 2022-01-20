@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import api from "../../services/api";
 import { Background, Title } from "../../components";
 import {
@@ -45,9 +46,9 @@ const AdoptionPets = () => {
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
   const [open, setOpen] = useState(false);
-  const [idInstitution, setIdInstitution] = useState("");
   const [dataAnimals, setDataAnimals] = useState([]);
   const [page, setPage] = useState(0);
+  const [pageSearch, setPageSearch] = useState(1);
   const [totalPages, setTotalPages] = useState("");
   const [search, setSearch] = useState(false);
   const [colorPet, setColorPet] = useState([]);
@@ -56,6 +57,8 @@ const AdoptionPets = () => {
   const [port, setPort] = useState("");
   const [castration, setCastration] = useState("");
   const [age, setAge] = useState("");
+
+  const { id } = useParams();
 
   let colorDogs = [
     { value: "Amarelo", text: "Amarelo" },
@@ -83,12 +86,7 @@ const AdoptionPets = () => {
   ];
 
   useEffect(() => {
-    const data = localStorage.getItem("@storage_Institution");
-
-    const { id } = JSON.parse(data);
-
-    setIdInstitution(id);
-    getAnimals(id);
+    getAnimals();
   }, []);
 
   useEffect(() => {
@@ -166,7 +164,7 @@ const AdoptionPets = () => {
     setOpen(false);
   }
 
-  async function getAnimals(id = idInstitution) {
+  async function getAnimals() {
     if (id !== "") {
       try {
         const response = await api.get(
@@ -192,7 +190,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/cats/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -212,7 +210,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/dogs/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -229,18 +227,34 @@ const AdoptionPets = () => {
   }
 
   function next() {
-    if (page < totalPages - 1) {
-      setPage(page + 1);
+    if (search) {
+      if (pageSearch < totalPages - 1) {
+        setPageSearch(pageSearch + 1);
+      } else {
+        toast.error("Opa! Não tem mais pets", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     } else {
-      toast.error("Opa! Não tem mais pets", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      if (page < totalPages - 1) {
+        setPage(page + 1);
+      } else {
+        toast.error("Opa! Não tem mais pets", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
     }
   }
 
   function back() {
-    if (page > 0) {
-      setPage(page - 1);
+    if (search) {
+      if (pageSearch > 1) {
+        setPageSearch(pageSearch - 1);
+      }
+    } else {
+      if (page > 0) {
+        setPage(page - 1);
+      }
     }
   }
 
@@ -266,7 +280,7 @@ const AdoptionPets = () => {
     try {
       const response = await api.get(
         "/api/animals/institution",
-        { params: { id: idInstitution, page: page } },
+        { params: { id: id, page: page } },
         {
           method: "GET",
           headers: { "Content-Type": "application/json" },
@@ -292,7 +306,7 @@ const AdoptionPets = () => {
             gender: gender,
             castration: castration,
             age: age,
-            page: page,
+            page: pageSearch,
           },
         },
         {
@@ -301,7 +315,6 @@ const AdoptionPets = () => {
         }
       );
 
-      // console.log(response.data.content);
       setDataAnimals(response.data.content);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -321,7 +334,7 @@ const AdoptionPets = () => {
             gender: gender,
             castration: castration,
             age: age,
-            page: page,
+            page: pageSearch,
             size_dog: port,
           },
         },
@@ -337,6 +350,42 @@ const AdoptionPets = () => {
       toast.error("Erro ao obter os gatos :(", {
         position: toast.POSITION.TOP_CENTER,
       });
+    }
+  }
+
+  async function postPlace(idPet, port, zip_code, state, city, district) {
+    let type = "";
+
+    if (!!port) {
+      type = "dog";
+    } else {
+      type = "cat";
+    }
+
+    const jsonplace = JSON.stringify({
+      place: {
+        type: type,
+        city: city,
+        state: state,
+        district: district,
+        zip_code: zip_code,
+      },
+      animal: { id: idPet },
+    });
+
+    try {
+      const response = await api.post("/api/place", jsonplace, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if ((await response).status === 201) {
+        // console.log("Dados Enviados");
+      }
+    } catch (error) {
+      console.log("Erro ao enviar os dados");
     }
   }
 
@@ -630,8 +679,21 @@ const AdoptionPets = () => {
           <ContainerPets>
             {dataAnimals.map((item, index) => {
               return (
-                <ContainerPet key={index} to="/pesquisar/pets/pet">
-                  <ImagePet src={modelo} />
+                <ContainerPet
+                  key={index}
+                  to={`/pesquisar/instituicoes/${id}/pets/${item.id}`}
+                  onClick={async () =>
+                    await postPlace(
+                      item.id,
+                      item.size_dog,
+                      item.institution.zip_code,
+                      item.institution.state,
+                      item.institution.city,
+                      item.institution.district
+                    )
+                  }
+                >
+                  <ImagePet src={`http://localhost:80/${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
@@ -647,7 +709,7 @@ const AdoptionPets = () => {
         <ContainerPage>
           <ContainerButton>
             <Button onClick={() => back()}>Anterior</Button>
-            <Number>{page}</Number>
+            <Number>{search ? pageSearch : page}</Number>
             <Button onClick={() => next()}> Próximo</Button>
           </ContainerButton>
         </ContainerPage>
