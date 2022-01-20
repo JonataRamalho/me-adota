@@ -25,6 +25,7 @@ import DonutChart from './components/DonutChart';
 import PieChartGraph from './components/PieChartGraph';
 import ClusteredBarChartGraph from './components/ClusteredBarChartGraph';
 import LineBarAreaComposedChartGraph from './components/LineBarAreaComposedChartGraph';
+import PieChartWithCustomizedLabelGraph from './components/PieChartWithCustomizedLabelGraph';
 
 function Copyright(props) {
   return (
@@ -94,7 +95,7 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const [open, setOpen] = React.useState(true);
-  
+
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -104,7 +105,7 @@ function DashboardContent() {
       p: 2,
       display: 'flex',
       flexDirection: 'column',
-      height: 320
+      height: 320,
     };
   };
 
@@ -121,44 +122,6 @@ function DashboardContent() {
       cat: 1398,
       amt: 2210,
     },
-  ];
-
-  const dataCepByIdadeAndDistrict = [
-    {
-      name: 'Al, Cascata',
-      uv: 590,
-      pv: 800,
-      amt: 1400,
-      cnt: 490,
-    },
-    {
-      name: 'Al, Santos Dumont',
-      uv: 868,
-      pv: 967,
-      amt: 1506,
-      cnt: 590,
-    },
-    {
-      name: 'AL, Tabuleiro do Pinto',
-      uv: 1397,
-      pv: 1098,
-      amt: 989,
-      cnt: 350,
-    },
-    {
-      name: 'AL, Trapiche da Barra',
-      uv: 1480,
-      pv: 1200,
-      amt: 1228,
-      cnt: 480,
-    },
-    {
-      name: 'Al, Tabuleiro dos Martins',
-      uv: 1520,
-      pv: 1108,
-      amt: 1100,
-      cnt: 460,
-    }
   ];
 
   return (
@@ -280,9 +243,15 @@ function DashboardContent() {
 
               <Grid item xs={6} md={8} lg={9}>
                 <Paper sx={configSxPaperChart}>
-                <LineBarAreaComposedChartGraph
-                    name='Contagem de CEP por idade, estado e distrito'
-                    data={dataCepByIdadeAndDistrict}
+                  <PieChartWithCustomizedLabelGraph name='% de idade dos Cães' />
+                </Paper>
+              </Grid>
+
+              <Grid item xs={6} md={8} lg={9}>
+                <Paper sx={configSxPaperChart}>
+                  <PieChartWithCustomizedLabelGraph
+                    name='% de idade dos Gatos'
+                    listColors={['#00C49F', '#FF2F30', '#8884d8',]}
                   />
                 </Paper>
               </Grid>
