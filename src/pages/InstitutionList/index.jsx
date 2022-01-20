@@ -85,7 +85,7 @@ const InstitutionList = () => {
               return (
                 <ContainerInstitution
                   key={index}
-                  to="/pesquisar/instituicoes/pets"
+                  to={`/pesquisar/instituicoes/${item.id}/pets`}
                 >
                   <Name>{item.name}</Name>
                   <Detail>

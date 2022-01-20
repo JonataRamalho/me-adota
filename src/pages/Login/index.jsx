@@ -19,8 +19,8 @@ import api from "../../services/api";
 
 const Login = () => {
   const [page, setPage] = useState(0);
-  const [email, setEmail] = useState("amada@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -89,18 +89,20 @@ const Login = () => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          // "Access-Control-Allow-Origin": "*",
+          "Access-Control-Request-Headers": "Authorization",
         },
       });
 
-      // const request = response.headers.authorization;
-
-      // localStorage.setItem("token", request);
+      localStorage.setItem(
+        "@storage_Token",
+        JSON.stringify(response.headers.authorization)
+      );
 
       getInstituion();
 
       navigate("/menu");
     } catch (err) {
+      console.log(err);
       toast.error("Erro ao realizar login!", {
         position: toast.POSITION.TOP_CENTER,
       });

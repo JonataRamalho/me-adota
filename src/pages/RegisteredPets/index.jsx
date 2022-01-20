@@ -3,12 +3,15 @@ import api from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import { Background, Title } from "../../components";
 import {
+  Button,
   ButtonBackMenu,
   ButtonNext,
   ButtonPet,
+  ContainerButton,
   ContainerButtonBack,
   ContainerButtonNext,
   ContainerDetails,
+  ContainerPage,
   ContainerPet,
   ContainerPets,
   ContainerRegisteredPets,
@@ -18,6 +21,7 @@ import {
   ImagePet,
   Main,
   Name,
+  Number,
 } from "./styles";
 
 import arrowLeft from "../../assets/arrow-left.svg";
@@ -161,7 +165,9 @@ const RegisteredPets = () => {
             <Image src={arrowLeft} /> Voltar ao menu
           </ButtonBackMenu>
         </ContainerButtonBack>
+
         <Title content="Pets cadastrados" />
+
         <ContainerRegisteredPets>
           <ContainerSelectedPet>
             <ButtonPet
@@ -187,7 +193,7 @@ const RegisteredPets = () => {
             {dataAnimals.map((item, index) => {
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={modelo} />
+                  <ImagePet src={`http://localhost:80/${item.imagePath}`} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
@@ -199,12 +205,14 @@ const RegisteredPets = () => {
               );
             })}
           </ContainerPets>
-          <ContainerButtonNext>
-            <ButtonNext onClick={() => back()}>Anterior</ButtonNext>{" "}
-            <p>{page}</p>
-            <ButtonNext onClick={() => next()}>Próximo</ButtonNext>
-          </ContainerButtonNext>
         </ContainerRegisteredPets>
+        <ContainerPage>
+          <ContainerButton>
+            <Button onClick={() => back()}>Anterior</Button>
+            <Number>{page}</Number>
+            <Button onClick={() => next()}> Próximo</Button>
+          </ContainerButton>
+        </ContainerPage>
       </Main>
       <ToastContainer />
     </Background>

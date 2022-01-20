@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import api from "../../services/api";
 import { Background } from "../../components";
 import {
   ButtonBack,
@@ -19,37 +22,62 @@ import {
 import arrowLeft from "../../assets/arrow-left.svg";
 import facebook from "../../assets/facebook.svg";
 import instagram from "../../assets/instagram.svg";
+import { ToastContainer, toast } from "react-toastify";
 
 const Instituion = () => {
+  const [dataInstitution, setDataInstitution] = useState([]);
+  const [dataAccount, setDataAccount] = useState([]);
+  const { id, idPet } = useParams();
+
+  useEffect(() => {
+    getInstitution();
+  }, []);
+
+  async function getInstitution() {
+    try {
+      const response = await api.get(`/api/institution/${id}`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      });
+      setDataInstitution(response.data);
+      setDataAccount(response.data.account);
+    } catch (error) {
+      toast.error("Erro ao obter a instituição", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+  }
+
   return (
     <Background>
       <Main>
         <ContainerButtonBack>
-          <ButtonBack to="/pesquisar/pets/pet">
+          <ButtonBack to={`/pesquisar/instituicoes/${id}/pets/${idPet}`}>
             <Image src={arrowLeft} /> Voltar ao pet
           </ButtonBack>
         </ContainerButtonBack>
 
         <Container>
           <ContainerInstituion>
-            <Name>Ong Me Adota</Name>
+            <Name>{dataInstitution.name}</Name>
             <ContainerInformation>
               <ContainerAboutInstituion>
                 <Title>Endereço</Title>
                 <Information>
-                  Rua A-40 (Cj Benedito Bentes I) - Benedito Bentes - Maceió/AL
+                  {dataInstitution.place} - {dataInstitution.district} -{" "}
+                  {`${dataInstitution.city}/${dataInstitution.state}`}
                 </Information>
               </ContainerAboutInstituion>
               <ContainerAboutInstituion>
                 <Title>Faça uma doação</Title>
                 <ContainerDetails>
                   <ContainerDetail>
-                    <Information>Banco - Caixa</Information>
-                    <Information>1033 000 00000</Information>
+                    <Information>Banco - {dataAccount.bank}</Information>
+                    <Information>{`${dataAccount.agency} ${dataAccount.operation} ${dataAccount.number}`}</Information>
                   </ContainerDetail>
                   <ContainerDetail>
                     <Information>Pix</Information>
-                    <Information>00000000</Information>
+                    <Information>{dataAccount.pix}</Information>
                   </ContainerDetail>
                 </ContainerDetails>
               </ContainerAboutInstituion>
@@ -57,12 +85,12 @@ const Instituion = () => {
                 <Title>Redes Sociais</Title>
                 <ContainerDetails>
                   <ContainerDetail>
-                    <Social href="https://instagram.com" target="_blank">
+                    <Social href={dataInstitution.instagram} target="_blank">
                       <Image src={instagram} />
                     </Social>
                   </ContainerDetail>
                   <ContainerDetail>
-                    <Social href="https://facebook.com" target="_blank">
+                    <Social href={dataInstitution.facebook} target="_blank">
                       <Image src={facebook} />
                     </Social>
                   </ContainerDetail>
@@ -72,8 +100,8 @@ const Instituion = () => {
                 <Title>Contatos</Title>
                 <ContainerDetails>
                   <ContainerDetail>
-                    <Information>ongTeste@gmail.com</Information>
-                    <Information>82 98888-8888</Information>
+                    <Information>{dataInstitution.username}</Information>
+                    <Information>{dataInstitution.contact}</Information>
                   </ContainerDetail>
                 </ContainerDetails>
               </ContainerAboutInstituion>
@@ -81,6 +109,7 @@ const Instituion = () => {
           </ContainerInstituion>
         </Container>
       </Main>
+      <ToastContainer />
     </Background>
   );
 };
