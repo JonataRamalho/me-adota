@@ -38,10 +38,12 @@ import Pets from '@mui/icons-material/Pets';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LayersIcon from '@mui/icons-material/Layers';
 import ExitToApp from '@mui/icons-material/ExitToApp';
-
+import apids from "../../services/apids";
 import { useNavigate } from 'react-router-dom';
+import { DockSharp } from '@mui/icons-material';
 
 function Copyright(props) {
+
   return (
     <Typography
       variant='body2'
@@ -108,7 +110,83 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+
   const [open, setOpen] = React.useState(true);
+  const [cats, setCats] = React.useState([]);
+  const [dogs, setDogs] = React.useState([]);
+
+  const [ageGroup, setAgeGroup] = React.useState([]);
+  const [dogSize, setDogSize] = React.useState([]);
+
+  const [castrationAnimals, setCastrationAnimals] = React.useState([]);
+
+  
+
+  const [qtyAnimal, setQtyAnimal] = React.useState(0);
+
+  const [dataAnimal, setDataAnimal] = React.useState([]);
+ 
+  React.useEffect(() => {
+    async function getData() {
+      if (qtyAnimal === 0) {
+        try {
+          const response =  await  apids.get('/api/animals',
+          {method: 'GET', headers: {'Content-Type': 'application/json'}})
+          setDataAnimal(response.data)
+          setQtyAnimal(response.length)
+          getGender(dataAnimal)
+          ageGroupAnimal(dataAnimal)
+        } catch (error) {
+         console.log(error)
+        }
+      }
+    }
+    getData()
+  }, [dataAnimal]);
+  
+  const getGender = (animals)  => {
+    const cats = animals.filter((animal)=> animal.type === 'cat')
+    setCats(cats)
+    const dogs = animals.filter((animal)=> animal.type === 'dog')
+    setDogs(dogs)
+
+    castrationCatsDogs(cats, dogs)
+    dogsOfSize(dogs)
+  }
+
+
+ const dogsOfSize = (dogs)  => {
+    const data = [
+      { name: 'Pequeno', value: dogs.filter((animal)=> animal.size === 'Pequeno').length},
+      { name: 'Médio', value: dogs.filter((animal)=> animal.size === 'Médio').length},
+      { name: 'Grande', value: dogs.filter((animal)=> animal.size === 'Grande').length},
+    ];
+    setDogSize(data)
+  }
+  
+  const ageGroupAnimal = (animals)  => {
+    const data = [
+      { name: 'Adulto', value: animals.filter((animal)=> animal.age === 'Adulto').length},
+      { name: 'Jovem', value: animals.filter((animal)=> animal.age === 'Jovem').length},
+      { name: 'Sênior', value: animals.filter((animal)=> animal.age === 'Sênior').length},
+    ];
+    setAgeGroup(data)
+  }
+
+  const castrationCatsDogs = (cats, dogs)  => { 
+    const data = [
+      { name: 'Fêmea', 
+        cat: cats.filter((animal)=> animal.castration === 's').length,
+        dog: dogs.filter((animal)=> animal.castration === 's').length,
+      },
+      { name: 'Macho', 
+        cat: cats.filter((animal)=> animal.castration === 'n').length,
+        dog: dogs.filter((animal)=> animal.castration === 'n').length,
+      },
+    ];
+
+    setCastrationAnimals(data)
+  }
 
   const navigate = useNavigate();
 
@@ -124,21 +202,6 @@ function DashboardContent() {
       height: 320,
     };
   };
-
-  const dataGraphCastracaoPorGeneroTipo = [
-    {
-      name: 'Fêmea',
-      dog: 4000,
-      cat: 2400,
-      amt: 2400,
-    },
-    {
-      name: 'Macho',
-      dog: 3000,
-      cat: 1398,
-      amt: 2210,
-    },
-  ];
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -269,13 +332,13 @@ function DashboardContent() {
               <Grid item xs={6} md={8} lg={9}>
                 <Paper sx={configSxPaperChart}>
                   <DonutChart
-                    percentFirst={60}
-                    percentSecond={40}
+                    percentFirst={cats.length * 10}
+                    percentSecond={dogs.length * 10}
                     name='Tipo'
                     nameFirst='Cat'
                     nameSecond='Dog'
-                    valueFirst={400}
-                    valueSecond={200}
+                    valueFirst={cats.length}
+                    valueSecond={dogs.length}
                   />
                 </Paper>
               </Grid>
@@ -286,8 +349,8 @@ function DashboardContent() {
                     name='Gênero'
                     nameFirst='Fêmea'
                     nameSecond='Macho'
-                    valueFirst={3}
-                    valueSecond={2}
+                    valueFirst={cats.length}
+                    valueSecond={dogs.length}
                   />
                 </Paper>
               </Grid>
@@ -298,21 +361,26 @@ function DashboardContent() {
                 <Paper sx={configSxPaperChart}>
                   <ClusteredBarChartGraph
                     name='Contagem de castração por gênero e tipo'
-                    data={dataGraphCastracaoPorGeneroTipo}
+                    data={castrationAnimals}
                   />
                 </Paper>
               </Grid>
 
               <Grid item xs={6} md={8} lg={9}>
                 <Paper sx={configSxPaperChart}>
-                  <PieChartWithCustomizedLabelGraph name='% de idade dos Cães' />
+                  <PieChartWithCustomizedLabelGraph
+                   data={dogSize}
+                  name='Cachorro por Porte'
+                  listColors={['#00BFFF', '#FF00FF', '#8884d8']}
+                  />
                 </Paper>
               </Grid>
 
               <Grid item xs={6} md={8} lg={9}>
                 <Paper sx={configSxPaperChart}>
                   <PieChartWithCustomizedLabelGraph
-                    name='% de idade dos Gatos'
+                    data={ageGroup}
+                    name='Faixa Etária'
                     listColors={['#00C49F', '#FF2F30', '#8884d8']}
                   />
                 </Paper>
