@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Background, Title } from "../../components";
+import { Background, InputText, SelectMaterial, Title } from "../../components";
 import {
   Button,
   ButtonBack,
@@ -25,6 +25,7 @@ import api from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { TextField } from "@mui/material";
 
 const RegisterPet = () => {
   const [petType, setPetType] = useState("default");
@@ -66,7 +67,7 @@ const RegisterPet = () => {
       const { id } = JSON.parse(data);
 
       setIdInstituion(id);
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   let colorDogs = [
@@ -98,7 +99,7 @@ const RegisterPet = () => {
     try {
       const tokenInstitution = localStorage.getItem("@storage_Token");
       setToken(JSON.parse(tokenInstitution));
-    } catch (error) {}
+    } catch (error) { }
   }
 
   function showRegistrationPartOne() {
@@ -186,7 +187,44 @@ const RegisterPet = () => {
     );
   }
 
+
+  const styles = {
+    input: {
+      backgroundColor: 'lightgray',
+      borderRadius: '4px',
+      border: 'none',
+      boxSizing: 'border-box'
+    }
+  }
+
   function showRegistrationPartTwo() {
+    return (
+      <Main>
+        <ContainerButtonBack>
+          <ButtonBack onClick={() => setPage(0)}>
+            <Image src={arrowLeft} /> Voltar
+          </ButtonBack>
+        </ContainerButtonBack>
+        <Title content="Cadastro de pet para doação" />
+        {/* <Form> */}
+        {/* <ContainerInputs> */}
+        <SelectMaterial />
+        {/* <InputText
+              placeholder="Digite aqui"
+              InputProps={{
+                // disableUnderline: true,
+                style: styles.input
+              }}
+            /> */}
+        {/* </ContainerInputs> */}
+
+
+        {/* </Form> */}
+      </Main>
+    );
+  }
+
+  function showRegistrationPartThree() {
     return (
       <Main>
         <ContainerButtonBack>
@@ -253,11 +291,15 @@ const RegisterPet = () => {
     );
   }
 
+
+
   function renderPage() {
     if (page === 0) {
       return showRegistrationPartOne();
     } else if (page === 1) {
       return showRegistrationPartTwo();
+    } else if (page === 2) {
+      return showRegistrationPartThree();
     }
   }
 
