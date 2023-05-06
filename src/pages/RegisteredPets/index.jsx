@@ -44,7 +44,7 @@ const RegisteredPets = () => {
 
       setIdInstitution(id);
       getAnimals(id);
-    } catch (error) {}
+    } catch (error) { }
   }, []);
 
   useEffect(() => {
@@ -193,8 +193,10 @@ const RegisteredPets = () => {
             {dataAnimals.map((item, index) => {
               return (
                 <ContainerPet key={index} to="/menu/pets/pet">
+                  {/* TODO: As imagens não estão aparecendo */}
                   <ImagePet src={`http://localhost:8080${item.imagePath}`} />
                   <ContainerDetails>
+                    {console.log(item.imagePath)}
                     <Name>{item.name}</Name>
                     <Detail>
                       {item.age} - {item.gender} -{" "}
