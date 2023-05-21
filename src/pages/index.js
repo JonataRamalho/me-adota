@@ -10,4 +10,5 @@ export { default as AdoptionPets } from "./AdoptionPets";
 export { default as Pet } from "./Pet";
 export { default as Instituion } from "./Instituion";
 export { default as InstitutionList } from "./InstitutionList";
-export { default as Dashboard } from "./Dashboard";
+export { default as Dashboards } from "./Dashboards";
+export { default as Adoption } from "./Dashboards/Adoption";

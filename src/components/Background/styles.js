@@ -17,8 +17,14 @@ export const Content = styled.div`
   max-height: 856px;
   border-radius: 22px;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+`;
 
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
+export const ContentDashboard = styled(Content)`
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  max-width: none;
+  max-height: none;
+  border-radius: none;
+  box-shadow: none;
 `;

@@ -36,11 +36,11 @@ const Options = () => {
             </Button>
           </ContainerContent>
           <ContainerContent>
-            <Button to="/menu/dashboard">
+            <Button to="/menu/dashboards">
               <ContainerDetail>
                 <Image src={dashboard} />
               </ContainerDetail>
-              Dashboard
+              Dashboards
             </Button>
           </ContainerContent>
           <ContainerContent>

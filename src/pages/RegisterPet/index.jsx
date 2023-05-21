@@ -67,7 +67,7 @@ const RegisterPet = () => {
       const { id } = JSON.parse(data);
 
       setIdInstituion(id);
-    } catch (error) { }
+    } catch (error) {}
   }, []);
 
   let colorDogs = [
@@ -99,7 +99,7 @@ const RegisterPet = () => {
     try {
       const tokenInstitution = localStorage.getItem("@storage_Token");
       setToken(JSON.parse(tokenInstitution));
-    } catch (error) { }
+    } catch (error) {}
   }
 
   function showRegistrationPartOne() {
@@ -187,15 +187,14 @@ const RegisterPet = () => {
     );
   }
 
-
   const styles = {
     input: {
-      backgroundColor: 'lightgray',
-      borderRadius: '4px',
-      border: 'none',
-      boxSizing: 'border-box'
-    }
-  }
+      backgroundColor: "lightgray",
+      borderRadius: "4px",
+      border: "none",
+      boxSizing: "border-box",
+    },
+  };
 
   function showRegistrationPartTwo() {
     return (
@@ -217,7 +216,6 @@ const RegisterPet = () => {
               }}
             /> */}
         {/* </ContainerInputs> */}
-
 
         {/* </Form> */}
       </Main>
@@ -291,15 +289,13 @@ const RegisterPet = () => {
     );
   }
 
-
-
   function renderPage() {
     if (page === 0) {
       return showRegistrationPartOne();
     } else if (page === 1) {
-      return showRegistrationPartTwo();
-    } else if (page === 2) {
+      // return showRegistrationPartTwo();
       return showRegistrationPartThree();
+      // } else if (page === 2) {
     }
   }
 

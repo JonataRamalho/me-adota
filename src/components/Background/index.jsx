@@ -1,9 +1,13 @@
-import { Wrapper, Content } from "./styles";
+import { Wrapper, Content, ContentDashboard } from "./styles";
 
 const Background = (props) => {
   return (
     <Wrapper>
-      <Content>{props.children}</Content>
+      {props.dashboard ? (
+        <ContentDashboard>{props.children}</ContentDashboard>
+      ) : (
+        <Content>{props.children}</Content>
+      )}
     </Wrapper>
   );
 };

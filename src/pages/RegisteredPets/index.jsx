@@ -44,7 +44,7 @@ const RegisteredPets = () => {
 
       setIdInstitution(id);
       getAnimals(id);
-    } catch (error) { }
+    } catch (error) {}
   }, []);
 
   useEffect(() => {

@@ -7,7 +7,11 @@ export { default as SelectMaterial } from "./Select/SelectMaterial.jsx";
 export { default as Main } from "./Main";
 export { default as ContainerContent } from "./Container/ContainerContent";
 export { default as ContainerHeader } from "./Container/ContainerHeader";
-
-
-
-
+export { default as ButtonBack } from "./ButtonBack";
+export { default as MainWithContent } from "./Main/MainWithContent";
+export { default as ContainerDashboard } from "./Container/ContainerDashboard";
+export { default as MainDashboard } from "./Main/MainDashboard";
+export { default as ChartBar } from "./Charts/ChartBar";
+export { default as ChartPie } from "./Charts/ChartPie";
+export { default as ChartBarHorizontal } from "./Charts/ChartBarHorizontal";
+export { default as SearchTotal } from "./Charts/SearchTotal";
