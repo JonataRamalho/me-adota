@@ -1,4 +1,11 @@
-import { Background, Button, ContainerContent, ContainerHeader, Header, Main } from "../../components";
+import {
+  Background,
+  Button,
+  ContainerContent,
+  ContainerHeader,
+  Header,
+  Main,
+} from "../../components";
 
 import { Image } from "./styles";
 
@@ -13,7 +20,11 @@ const Home = () => {
         </ContainerHeader>
         <ContainerContent>
           <Image src={imgMeAdota} />
-          <Button to="/pesquisar" content="Adote um agora!" typeButton="adopt" />
+          <Button
+            to="/pesquisar"
+            content="Adote um agora!"
+            typeButton="adopt"
+          />
         </ContainerContent>
       </Main>
     </Background>
