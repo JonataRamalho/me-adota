@@ -12,7 +12,8 @@ import {
   RegisteredPets,
   RegisterPet,
   SearchZipCode,
-  Dashboard
+  Dashboards,
+  Adoption,
 } from "./pages";
 
 const Routes = () => {
@@ -27,7 +28,8 @@ const Routes = () => {
         <Route path="/menu/cadastrar-pet" element={<RegisterPet />} />
         <Route path="/menu/pets" element={<RegisteredPets />} />
 
-        <Route path="/menu/dashboard" element={<Dashboard />} />
+        <Route path="/menu/dashboards" element={<Dashboards />} />
+        <Route path="/menu/dashboards/adocao" element={<Adoption />} />
 
         <Route path="/pesquisar" element={<SearchZipCode />} />
         <Route path="/pesquisar/instituicoes" element={<InstitutionList />} />
@@ -39,7 +41,6 @@ const Routes = () => {
           path="/pesquisar/instituicoes/:id/pets/:idPet"
           element={<Pet />}
         />
-
         <Route
           path="/pesquisar/instituicoes/:id/pets/:idPet/:id"
           element={<Instituion />}
