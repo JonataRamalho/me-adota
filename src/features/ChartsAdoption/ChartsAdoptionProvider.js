@@ -213,7 +213,6 @@ const ChartsAdoptionProvider = ({ children }) => {
     queryDog.isLoading === false &&
     dataAnimals.length;
 
-  console.log(counSearchTotal);
   return (
     <ChartsAdoptionContext.Provider
       value={{

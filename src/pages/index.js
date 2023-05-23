@@ -12,3 +12,4 @@ export { default as Instituion } from "./Instituion";
 export { default as InstitutionList } from "./InstitutionList";
 export { default as Dashboards } from "./Dashboards";
 export { default as Adoption } from "./Dashboards/Adoption";
+export { default as Expenses } from "./Dashboards/Expenses";
