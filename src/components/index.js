@@ -15,3 +15,4 @@ export { default as ChartBar } from "./Charts/ChartBar";
 export { default as ChartPie } from "./Charts/ChartPie";
 export { default as ChartBarHorizontal } from "./Charts/ChartBarHorizontal";
 export { default as SearchTotal } from "./Charts/SearchTotal";
+export { default as ChartAreaLine } from "./Charts/ChartAreaLine";

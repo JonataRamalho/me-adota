@@ -14,6 +14,7 @@ import {
   SearchZipCode,
   Dashboards,
   Adoption,
+  Expenses,
 } from "./pages";
 
 const Routes = () => {
@@ -30,6 +31,7 @@ const Routes = () => {
 
         <Route path="/menu/dashboards" element={<Dashboards />} />
         <Route path="/menu/dashboards/adocao" element={<Adoption />} />
+        <Route path="/menu/dashboards/despesas" element={<Expenses />} />
 
         <Route path="/pesquisar" element={<SearchZipCode />} />
         <Route path="/pesquisar/instituicoes" element={<InstitutionList />} />
