@@ -35,6 +35,7 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Skeleton,
 } from "@mui/material";
 
 import arrowLeft from "../../assets/arrow-left.svg";
@@ -693,7 +694,7 @@ const AdoptionPets = () => {
                     )
                   }
                 >
-                  <ImagePet src={`http://localhost:80/${item.imagePath}`} />
+                  <Skeleton width={168} height={112} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>
