@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import { Background, InputText, SelectMaterial, Title } from "../../components";
+import { Background, SelectMaterial, Title } from "../../components";
 import {
   Button,
   ButtonBack,
   ButtonBackMenu,
-  Checkbox,
   ContainerButtonBack,
-  ContainerCheckbox,
+  ContainerImage,
   ContainerInputs,
-  ContainerPersonality,
   Description,
   Form,
   Image,
+  ImagePet,
   Input,
-  Label,
+  InputImage,
   Main,
   Option,
   Select,
-  Text,
 } from "./styles";
 
 import arrowLeft from "../../assets/arrow-left.svg";
@@ -25,9 +23,12 @@ import api from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { TextField } from "@mui/material";
+import { GeneralProviderContext } from "../../features";
+import { useContext } from "react";
 
 const RegisterPet = () => {
+  const { institutionData, login } = useContext(GeneralProviderContext);
+
   const [petType, setPetType] = useState("default");
   const [ageGroup, setAgeGroup] = useState("default");
   const [castrated, setCastrated] = useState("default");
@@ -39,11 +40,12 @@ const RegisterPet = () => {
   const [descriptionPet, setDescriptionPet] = useState("");
   const [gender, setGender] = useState("default");
   const [personalities, setPersonalities] = useState([]);
-  const [checkPersonalities, setCheckPersonalities] = useState([]);
   const [image, setImage] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [idInstituion, setIdInstituion] = useState("");
   const [token, setToken] = useState("");
+  const [personality, setPersonality] = useState([]);
+  const [animalStatus, setAnimalStatus] = useState([]);
 
   const navigate = useNavigate();
 
@@ -62,9 +64,7 @@ const RegisterPet = () => {
 
   useEffect(() => {
     try {
-      const data = localStorage.getItem("@storage_Institution");
-
-      const { id } = JSON.parse(data);
+      const { id } = JSON.parse(institutionData);
 
       setIdInstituion(id);
     } catch (error) {}
@@ -97,10 +97,41 @@ const RegisterPet = () => {
 
   function getToken() {
     try {
-      const tokenInstitution = localStorage.getItem("@storage_Token");
-      setToken(JSON.parse(tokenInstitution));
+      setToken(login.token);
     } catch (error) {}
   }
+
+  const status = {
+    personality: personalities,
+    animalStatus: ["Disponível para adoção", "Adotado"],
+  };
+
+  const title = {
+    personality: {
+      title: "Qual é  a personalidade?",
+      type: "personality",
+    },
+    animalStatus: {
+      title: "Situação do animal?",
+      type: "animalStatus",
+    },
+  };
+
+  const handleChangePersonality = (event) => {
+    const {
+      target: { value },
+    } = event;
+
+    setPersonality(typeof value === "string" ? value.split(",") : value);
+  };
+
+  const handleChangeAnimalStatus = (event, type) => {
+    const {
+      target: { value },
+    } = event;
+
+    setAnimalStatus([value]);
+  };
 
   function showRegistrationPartOne() {
     return (
@@ -112,16 +143,18 @@ const RegisterPet = () => {
         </ContainerButtonBack>
         <Title content="Cadastro de pet para doação" />
         <Form>
-          <ContainerInputs>
-            <img src={imagePreviewUrl} width="150px" height="150px" />
-            <Input
-              type="file"
-              name="fileImage"
-              id="fileImage"
-              accept="image/png, image/jpeg"
-              onChange={(e) => handleImageChange(e)}
-            />
-          </ContainerInputs>
+          <ContainerImage>
+            {!!imagePreviewUrl && <ImagePet src={imagePreviewUrl} />}
+            {!imagePreviewUrl && (
+              <InputImage
+                type="file"
+                name="fileImage"
+                id="fileImage"
+                accept="image/png, image/jpeg"
+                onChange={(e) => handleImageChange(e)}
+              />
+            )}
+          </ContainerImage>
           <ContainerInputs>
             <Input
               type="text"
@@ -140,8 +173,6 @@ const RegisterPet = () => {
               <Option value="Cachorro">Cachorro</Option>
               <Option value="Gato">Gato</Option>
             </Select>
-          </ContainerInputs>
-          <ContainerInputs>
             <Select
               color={ageGroup}
               value={ageGroup}
@@ -165,8 +196,6 @@ const RegisterPet = () => {
               <Option value="Fêmea">Fêmea</Option>
               <Option value="Macho">Macho</Option>
             </Select>
-          </ContainerInputs>
-          <ContainerInputs>
             <Select
               color={castrated}
               value={castrated}
@@ -179,45 +208,12 @@ const RegisterPet = () => {
               <Option value="n">Não castrado</Option>
             </Select>
           </ContainerInputs>
-          <Button type="button" check={true} onClick={() => setPage(1)}>
-            Avançar
-          </Button>
+          <div>
+            <Button type="button" check={true} onClick={() => setPage(1)}>
+              Avançar
+            </Button>
+          </div>
         </Form>
-      </Main>
-    );
-  }
-
-  const styles = {
-    input: {
-      backgroundColor: "lightgray",
-      borderRadius: "4px",
-      border: "none",
-      boxSizing: "border-box",
-    },
-  };
-
-  function showRegistrationPartTwo() {
-    return (
-      <Main>
-        <ContainerButtonBack>
-          <ButtonBack onClick={() => setPage(0)}>
-            <Image src={arrowLeft} /> Voltar
-          </ButtonBack>
-        </ContainerButtonBack>
-        <Title content="Cadastro de pet para doação" />
-        {/* <Form> */}
-        {/* <ContainerInputs> */}
-        <SelectMaterial />
-        {/* <InputText
-              placeholder="Digite aqui"
-              InputProps={{
-                // disableUnderline: true,
-                style: styles.input
-              }}
-            /> */}
-        {/* </ContainerInputs> */}
-
-        {/* </Form> */}
       </Main>
     );
   }
@@ -266,14 +262,27 @@ const RegisterPet = () => {
                 );
               })}
             </Select>
-          </ContainerInputs>
-          <ContainerInputs>
-            <ContainerPersonality>
-              <Text>Qual é a personalidade? </Text>
-              <ContainerCheckbox>{personalitiesPets()}</ContainerCheckbox>
-            </ContainerPersonality>
-          </ContainerInputs>
-          <ContainerInputs type={true}>
+            <SelectMaterial
+              width={"290px"}
+              height={"48px"}
+              isMultiple={true}
+              title={title.personality}
+              status={status.personality}
+              valueStatus={personality}
+              handleChange={handleChangePersonality}
+            />
+            <SelectMaterial
+              width={"290px"}
+              height={"48px"}
+              title={title.animalStatus}
+              isMultiple={false}
+              status={status.animalStatus}
+              valueStatus={animalStatus}
+              handleChange={handleChangeAnimalStatus}
+            />
+            {petType !== "Cachorro" && (
+              <div style={{ width: "290px", height: "48px" }} />
+            )}
             <Description
               placeholder="Sobre o pet"
               id="description"
@@ -281,9 +290,11 @@ const RegisterPet = () => {
               onChange={(e) => setDescriptionPet(e.target.value)}
             />
           </ContainerInputs>
-          <Button type="submit" check={false}>
-            Cadastrar
-          </Button>
+          <div>
+            <Button type="submit" check={false}>
+              Cadastrar
+            </Button>
+          </div>
         </Form>
       </Main>
     );
@@ -293,26 +304,7 @@ const RegisterPet = () => {
     if (page === 0) {
       return showRegistrationPartOne();
     } else if (page === 1) {
-      // return showRegistrationPartTwo();
       return showRegistrationPartThree();
-      // } else if (page === 2) {
-    }
-  }
-
-  function addPersonalities(checked, value) {
-    let personalities = [];
-
-    personalities = checkPersonalities;
-
-    if (checked) {
-      personalities.push({ id: value });
-
-      setCheckPersonalities(personalities);
-    } else {
-      const newPersonalities = personalities.filter(
-        (item) => item.id !== value
-      );
-      setCheckPersonalities(newPersonalities);
     }
   }
 
@@ -322,27 +314,11 @@ const RegisterPet = () => {
       headers: { "Content-Type": "application/json" },
     });
 
-    setPersonalities(response.data.content);
-  }
+    const namePersonalities = response?.data?.content?.map(
+      (personalidade) => personalidade.name
+    );
 
-  function personalitiesPets() {
-    if (personalities !== undefined) {
-      return personalities.map((value, index) => {
-        return (
-          <Label key={index}>
-            <Checkbox
-              type="checkbox"
-              value={value.id}
-              id={value.id}
-              onChange={(e) =>
-                addPersonalities(e.target.checked, e.target.value)
-              }
-            />
-            {value.name}
-          </Label>
-        );
-      });
-    }
+    setPersonalities(namePersonalities);
   }
 
   function handleImageChange(e) {
@@ -382,6 +358,8 @@ const RegisterPet = () => {
   }
 
   async function dataCat() {
+    const { zip_code, district } = JSON.parse(institutionData);
+
     const jsoncat = JSON.stringify({
       cat: {
         name: namePet,
@@ -390,11 +368,14 @@ const RegisterPet = () => {
         color: color,
         about: descriptionPet,
         gender: gender,
+        zip_code: zip_code,
+        district: district,
+        adopted: animalStatus[0] === "Adotado" ? "s" : "n",
       },
       institution: {
         id: idInstituion,
       },
-      personalities: checkPersonalities,
+      personalities: personality,
     });
 
     try {
@@ -425,7 +406,7 @@ const RegisterPet = () => {
         !!gender &&
         !!castrated &&
         !!color &&
-        !!checkPersonalities &&
+        !!personality &&
         !!descriptionPet
       ) {
         toast.error("Erro ao cadastrar o pet", {
@@ -440,6 +421,8 @@ const RegisterPet = () => {
   }
 
   async function dataDog() {
+    const { zip_code, district } = JSON.parse(institutionData);
+
     const jsondog = JSON.stringify({
       dog: {
         name: namePet,
@@ -448,12 +431,15 @@ const RegisterPet = () => {
         color: color,
         about: descriptionPet,
         gender: gender,
+        adopted: animalStatus[0] === "Adotado" ? "s" : "n",
         size_dog: port,
+        zip_code: zip_code,
+        district: district,
       },
       institution: {
         id: idInstituion,
       },
-      personalities: checkPersonalities,
+      personalities: personality,
     });
 
     try {
@@ -484,7 +470,7 @@ const RegisterPet = () => {
         !!gender &&
         !!castrated &&
         !!color &&
-        !!checkPersonalities &&
+        !!personality &&
         !!descriptionPet
       ) {
         toast.error("Erro ao cadastrar o pet", {
