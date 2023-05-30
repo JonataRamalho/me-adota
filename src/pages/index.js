@@ -13,3 +13,7 @@ export { default as InstitutionList } from "./InstitutionList";
 export { default as Dashboards } from "./Dashboards";
 export { default as Adoption } from "./Dashboards/Adoption";
 export { default as Expenses } from "./Dashboards/Expenses";
+export { default as RegisteredPet } from "./RegisteredPets/RegisteredPet";
+export { default as RegisterExpenses } from "./RegisteredPets/RegisterExpenses";
+export { default as ViewExpenses } from "./RegisteredPets/ViewExpenses";
+export { default as EditExpenses } from "./RegisteredPets/ViewExpenses/EditExpenses";

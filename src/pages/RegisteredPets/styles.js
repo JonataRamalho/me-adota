@@ -21,7 +21,7 @@ export const Image = styled.img`
 `;
 
 export const ButtonBackMenu = styled(Link)`
-  width: 190px;
+  width: fit-content;
   cursor: pointer;
 
   color: ${(props) => props.theme.colors.tertiary};
@@ -33,7 +33,7 @@ export const ButtonBackMenu = styled(Link)`
 
   transition: 0.2s ease-in;
 
-  margin-top: 24px;
+  margin-top: 16px;
   margin-left: 24px;
 
   display: flex;
@@ -41,7 +41,7 @@ export const ButtonBackMenu = styled(Link)`
 `;
 
 export const ButtonBack = styled.a`
-  width: 100px;
+  width: fit-content;
   cursor: pointer;
 
   color: ${(props) => props.theme.colors.tertiary};

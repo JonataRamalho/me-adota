@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
-import { MenuItemCustom, SelectCustom } from './styles';
-import { ThemeContext } from 'styled-components';
+import { useContext, useState } from "react";
+import { MenuItemCustom, SelectCustom } from "./styles";
+import { ThemeContext } from "styled-components";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -12,58 +12,43 @@ const MenuProps = {
   },
 };
 
-const status = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
-];
-
-export default function MultipleSelectPlaceholder() {
+export default function MultipleSelectPlaceholder({
+  width,
+  height,
+  isMultiple,
+  title,
+  isDisabled,
+  status,
+  valueStatus,
+  handleChange,
+}) {
   const theme = useContext(ThemeContext);
-
-  const [healthStatus, setHealthStatus] = useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-
-    setHealthStatus(
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
-
 
   return (
     <SelectCustom
-      multiple
+      disabled={isDisabled}
+      multiple={isMultiple}
       displayEmpty
-      value={healthStatus}
-      onChange={handleChange}
+      value={valueStatus}
+      onChange={(e) => handleChange(e, title.type)}
       renderValue={(selected) => {
         if (selected.length === 0) {
-          return <em style={{ color: theme.colors.tertiary }}>Estado do animal</em>;
+          return (
+            <em style={{ color: theme.colors.tertiary }}>{title.title}</em>
+          );
         }
 
-        return selected.join(', ');
+        return selected.join(", ");
       }}
       MenuProps={MenuProps}
+      $width={width}
+      $height={height}
     >
       <MenuItemCustom disabled value="">
-        <em>Estado do animal</em>
+        <em>{title.title}</em>
       </MenuItemCustom>
       {status.map((item) => (
-        <MenuItemCustom
-          key={item}
-          value={item}
-        >
+        <MenuItemCustom key={item} value={item}>
           {item}
         </MenuItemCustom>
       ))}

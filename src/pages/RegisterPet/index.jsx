@@ -26,8 +26,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
+import { GeneralProviderContext } from "../../features";
+import { useContext } from "react";
 
 const RegisterPet = () => {
+  const { institutionData, login } = useContext(GeneralProviderContext);
+
   const [petType, setPetType] = useState("default");
   const [ageGroup, setAgeGroup] = useState("default");
   const [castrated, setCastrated] = useState("default");
@@ -62,9 +66,7 @@ const RegisterPet = () => {
 
   useEffect(() => {
     try {
-      const data = localStorage.getItem("@storage_Institution");
-
-      const { id } = JSON.parse(data);
+      const { id } = JSON.parse(institutionData);
 
       setIdInstituion(id);
     } catch (error) {}
@@ -97,8 +99,7 @@ const RegisterPet = () => {
 
   function getToken() {
     try {
-      const tokenInstitution = localStorage.getItem("@storage_Token");
-      setToken(JSON.parse(tokenInstitution));
+      setToken(login.token);
     } catch (error) {}
   }
 
