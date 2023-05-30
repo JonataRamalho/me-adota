@@ -6,6 +6,8 @@ export const Main = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 100%;
 `;
 
 export const ContainerButtonBack = styled.div`
@@ -60,23 +62,28 @@ export const ButtonBack = styled.a`
 
 export const Form = styled.form`
   width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 export const ContainerInputs = styled.div`
-  width: ${(props) => (props.type ? "" : "60%")};
-  display: flex;
-  justify-content: space-around;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 272px);
+  grid-column-gap: 48px;
+  grid-row-gap: 16px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Input = styled.input`
   width: 272px;
   height: 48px;
 
-  margin-top: 16px;
   padding-left: 16px;
 
   border-radius: 8px;
@@ -98,7 +105,6 @@ export const Select = styled.select`
   width: 290px;
   height: 48px;
 
-  margin-top: 16px;
   padding-left: 16px;
 
   border-radius: 8px;
@@ -219,7 +225,6 @@ export const Description = styled.textarea`
 
   resize: none;
 
-  margin-top: 16px;
   padding-top: 16px;
   padding-left: 16px;
 
@@ -236,4 +241,35 @@ export const Description = styled.textarea`
   ::-webkit-input-placeholder {
     color: ${(props) => props.theme.colors.tertiary};
   }
+`;
+
+export const ContainerImage = styled.div`
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+`;
+
+export const InputImage = styled.input`
+  width: 150px;
+  height: 150px;
+
+  border-radius: 8px;
+  outline: none;
+  border: none;
+  background-color: ${(props) => props.theme.colors.input};
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+`;
+
+export const ImagePet = styled.img`
+  width: 150px;
+  height: 150px;
+
+  border-radius: 8px !important;
+  outline: none;
+  border: none;
+  background-color: ${(props) => props.theme.colors.input};
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
