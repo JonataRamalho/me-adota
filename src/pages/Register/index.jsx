@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Background, Header, Title } from "../../components";
+import { Background, ContainerContent, ContainerHeader, Header, Main, Title } from "../../components";
 import {
   Button,
   ButtonBack,
@@ -8,7 +8,6 @@ import {
   Form,
   Image,
   Input,
-  Main,
 } from "./styles";
 
 import arrowLeft from "../../assets/arrow-left.svg";
@@ -64,7 +63,7 @@ const Register = () => {
 
   function showRegistrationPartOne() {
     return (
-      <Main>
+      <>
         <Title content="Cadastre-se para ajudar os pets a encontrar um lar!" />
         <Form>
           <ContainerInputs>
@@ -117,13 +116,13 @@ const Register = () => {
             Avançar
           </Button>
         </Form>
-      </Main>
+      </>
     );
   }
 
   function showRegistrationPartTwo() {
     return (
-      <Main>
+      <>
         <ContainerButtonBack>
           <ButtonBack onClick={() => setPage(0)}>
             <Image src={arrowLeft} /> Voltar
@@ -177,13 +176,13 @@ const Register = () => {
             Avançar
           </Button>
         </Form>
-      </Main>
+      </>
     );
   }
 
   function showRegistrationPartThree() {
     return (
-      <Main>
+      <>
         <ContainerButtonBack>
           <ButtonBack onClick={() => setPage(1)}>
             <Image src={arrowLeft} /> Voltar
@@ -210,13 +209,13 @@ const Register = () => {
             Avançar
           </Button>
         </Form>
-      </Main>
+      </>
     );
   }
 
   function showRegistrationPartFour() {
     return (
-      <Main>
+      <>
         <ContainerButtonBack>
           <ButtonBack onClick={() => setPage(2)}>
             <Image src={arrowLeft} /> Voltar
@@ -265,7 +264,7 @@ const Register = () => {
             Cadastrar
           </Button>
         </Form>
-      </Main>
+      </>
     );
   }
 
@@ -374,9 +373,16 @@ const Register = () => {
 
   return (
     <Background>
-      <Header type={0} />
-      {renderPage()}
-      <ToastContainer />
+      <Main>
+        <ContainerHeader>
+          <Header type={0} />
+        </ContainerHeader>
+        <ContainerContent>
+          {renderPage()}
+        </ContainerContent>
+
+        <ToastContainer />
+      </Main>
     </Background>
   );
 };

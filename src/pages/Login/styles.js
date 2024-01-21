@@ -1,13 +1,5 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-top: 60px;
-`;
-
 export const Form = styled.form`
   width: 100%;
   max-width: 350px;

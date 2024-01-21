@@ -1,13 +1,5 @@
 import styled from "styled-components";
 
-export const Main = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  margin-top: 48px;
-`;
-
 export const ContainerButtonBack = styled.div`
   width: 100%;
   max-width: 736px;
@@ -93,8 +85,8 @@ export const Button = styled.button`
 
   &:hover {
     background-color: ${(props) =>
-      props.check
-        ? props.theme.colors.tertiary
-        : props.theme.colors.background};
+    props.check
+      ? props.theme.colors.tertiary
+      : props.theme.colors.background};
   }
 `;

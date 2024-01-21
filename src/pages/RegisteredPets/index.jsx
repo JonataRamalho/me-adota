@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../../services/api";
 import { ToastContainer, toast } from "react-toastify";
 import { Background, Title } from "../../components";
@@ -26,8 +26,12 @@ import {
 
 import arrowLeft from "../../assets/arrow-left.svg";
 import modelo from "../../assets/catModelo.jpg";
+import { GeneralProviderContext } from "../../features";
+import { Skeleton } from "@mui/material";
 
 const RegisteredPets = () => {
+  const { institutionData, getAnimalType } = useContext(GeneralProviderContext);
+
   const [selectedTodosPets, setSelectedTodosPets] = useState(true);
   const [selectedCachorro, setSelectedCachorro] = useState(false);
   const [selectedGato, setSelectedGato] = useState(false);
@@ -38,14 +42,12 @@ const RegisteredPets = () => {
 
   useEffect(() => {
     try {
-      const data = localStorage.getItem("@storage_Institution");
-
-      const { id } = JSON.parse(data);
+      const { id } = JSON.parse(institutionData);
 
       setIdInstitution(id);
       getAnimals(id);
     } catch (error) {}
-  }, []);
+  }, [institutionData]);
 
   useEffect(() => {
     if (selectedTodosPets) {
@@ -192,8 +194,18 @@ const RegisteredPets = () => {
           <ContainerPets>
             {dataAnimals.map((item, index) => {
               return (
-                <ContainerPet key={index} to="/menu/pets/pet">
-                  <ImagePet src={`http://localhost:8080${item.imagePath}`} />
+                <ContainerPet
+                  onClick={() =>
+                    getAnimalType({
+                      typePet: !!item.size_dog ? "dog" : "cat",
+                    })
+                  }
+                  key={index}
+                  to={`/menu/pets/${item.id}`}
+                >
+                  {/* TODO: As imagens não estão aparecendo */}
+                  {/* <ImagePet src={`http://localhost:8080${item.imagePath}`} /> */}
+                  <Skeleton width={168} height={112} />
                   <ContainerDetails>
                     <Name>{item.name}</Name>
                     <Detail>

@@ -13,19 +13,21 @@ import logo from "../../assets/meadota.png";
 import user from "../../assets/user-blue.svg";
 import logOut from "../../assets/log-out.svg";
 import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { GeneralProviderContext } from "../../features";
 
 const Header = (props) => {
   const [nameInstituion, setNameInstituion] = useState("");
 
+  const { institutionData } = useContext(GeneralProviderContext);
+
   useEffect(() => {
     try {
-      const data = localStorage.getItem("@storage_Institution");
-
-      const { name } = JSON.parse(data);
+      const { name } = JSON.parse(institutionData);
 
       setNameInstituion(name);
     } catch (error) {}
-  }, []);
+  }, [institutionData]);
 
   function showInitialHeader() {
     return (

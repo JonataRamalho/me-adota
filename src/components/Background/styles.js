@@ -11,8 +11,20 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   background-color: ${(props) => props.theme.colors.secondary};
-  width: 78vw;
-  height: 88vh;
+  width: 78%;
+  max-width: 1496px;
+  height: 88%;
+  max-height: 856px;
   border-radius: 22px;
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+`;
+
+export const ContentDashboard = styled(Content)`
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  max-width: none;
+  max-height: none;
+  border-radius: none;
+  box-shadow: none;
 `;
